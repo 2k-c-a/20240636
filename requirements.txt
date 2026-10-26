@@ -1,2 +1,6 @@
-# Vercel installs dependencies from this project root.
--r backend/requirements.txt
+# Keep in sync with pyproject.toml and backend/requirements.txt.
+fastapi==0.143.0
+uvicorn[standard]==0.54.0
+supabase==2.32.0
+python-dotenv==1.2.4
+httpx==0.28.1

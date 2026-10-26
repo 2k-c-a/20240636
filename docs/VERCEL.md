@@ -12,7 +12,7 @@ DB와 이메일 인증은 기존 Supabase 프로젝트를 사용합니다.
 어느 경우든 frontend와 backend는 같은 루트 아래에 있어야 합니다.
 `.env`, `.venv`, `.vercel`은 GitHub에 업로드하지 않습니다.
 
-배포 루트의 `requirements.txt`가 백엔드 의존성을 참조하고,
+배포 루트의 `pyproject.toml`과 `requirements.txt`에 실행 의존성을 명시하고,
 `pyproject.toml`이 `backend.app.main:app`을 실행 대상으로 지정합니다.
 Python 버전은 `.python-version`으로 3.12를 지정합니다.
 정적 파일도 FastAPI를 거치므로 페이지별 CSP와 공통 보안 헤더를 유지합니다.
@@ -57,3 +57,7 @@ DB 적용 절차는 `../supabase/README.md`를 참고합니다.
 로컬 테스트 통과와 실제 Vercel 배포 성공은 별도로 확인해야 합니다.
 
 참고: https://vercel.com/docs/frameworks/backend/fastapi
+
+## 의존성 누락 방지
+
+Vercel용 `pyproject.toml`에는 `[project].dependencies`도 명시합니다. 실행 대상만 지정하고 의존성 목록을 비워 두면 배포 환경에서 `ModuleNotFoundError`가 발생할 수 있습니다. `pyproject.toml`, 루트 `requirements.txt`, `backend/requirements.txt`의 실행 의존성 버전을 함께 유지하세요.
