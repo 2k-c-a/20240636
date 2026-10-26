@@ -10,9 +10,9 @@ const FRONTEND_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '../../fro
 const HTML_DIR = join(FRONTEND_DIR, 'html');
 
 // 메뉴(주 메뉴 `nav`)가 가리키는 페이지. 마지막이 로그인 항목이다.
-const MENU_PAGES = ['index.html', 'visualizer.html', 'board.html', 'info.html', 'idea.html', 'map.html', 'gallery.html', 'contact.html', 'login.html'];
+const MENU_PAGES = ['index.html', 'visualizer.html', 'board.html', 'info.html', 'map.html'];
 // 메뉴에는 없고 회원 화면에서 링크로 이동하는 페이지.
-const AUTH_ONLY_PAGES = ['signup.html', 'reset-password.html', 'auth-callback.html', 'profile.html', 'post.html'];
+const AUTH_ONLY_PAGES = ['login.html', 'signup.html', 'reset-password.html', 'auth-callback.html', 'profile.html', 'post.html', 'write.html'];
 const GITHUB_URL = 'https://github.com/2k-c-a';
 
 // ---------- 작은 HTML 도구 (이 프로젝트의 HTML 규칙을 전제로 한다) ----------
@@ -188,11 +188,11 @@ test('모든 페이지의 헤더·메뉴·푸터 마크업이 같다', () => {
     }
 });
 
-test('메뉴는 존재하는 9개 페이지를 정해진 순서로 가리키고 미래 페이지를 연결하지 않는다', () => {
+test('하위 메뉴는 학습·커뮤니티·사이트 안내로 연결된다', () => {
     const nav = parseTags(blockOf(pages['index.html'], 'nav'));
     const hrefs = nav.filter((t) => t.name === 'a').map((t) => t.attrs.href);
-    assert.deepEqual(hrefs, MENU_PAGES);
-    for (const href of hrefs) assert.ok(pageFiles.includes(href), `${href} 페이지가 없습니다`);
+    assert.deepEqual(hrefs, ['index.html','visualizer.html','info.html#guide','board.html','write.html','info.html','map.html','visualizer.html']);
+    for (const href of hrefs) assert.ok(pageFiles.includes(href.split('#')[0]), `${href} 페이지가 없습니다`);
 });
 
 test('모든 페이지가 기본 구조(언어, viewport, 제목, 파비콘, 스타일, 공통 스크립트)를 갖춘다', () => {
@@ -263,10 +263,12 @@ test('실습용 양식은 전송되지 않도록 data-demo-form과 POST를 쓴�
     }
 });
 
-test('실습·기획 페이지에는 실습용임을 알리는 안내가 있다', () => {
-    for (const file of ['idea.html', 'gallery.html', 'contact.html']) {
-        assert.match(stripComments(pages[file]), /class="notice"[^>]*>[^<]*수업 실습/, `${file}: 실습 안내 없음`);
-    }
+test('실습용 페이지·양식을 제거하고 로그인 영역을 헤더에 둔다', () => {
+    for (const name of ['gallery.html','contact.html','idea.html']) assert.ok(!pageFiles.includes(name));
+    for (const html of Object.values(pages)) { assert.match(blockOf(html,'header'), /data-auth-menu/); assert.doesNotMatch(blockOf(html,'nav'), /data-auth-menu/); }
+    assert.match(pages['board.html'], /href="write.html"/);
+    assert.doesNotMatch(pages['board.html'], /id="board-form"/);
+    assert.match(pages['write.html'], /id="board-form"/);
 });
 
 test('시각화 페이지: 실행 기록 재생 안내, 조작 버튼, 상태 알림 영역, 전용 스타일·스크립트가 있다', () => {
@@ -294,7 +296,7 @@ test('시각화 페이지: 실행 기록 재생 안내, 조작 버튼, 상태 �
 });
 
 test('존재 확인용: 대표 자산이 실제로 있다', () => {
-    for (const file of ['css/style.css', 'css/visualizer.css', 'js/visualizer.js', 'js/player-state.js', 'js/controls.js', 'js/language-select.js', 'js/select-options.js', 'js/focus-guard.js', 'js/playback.js', 'js/request-gate.js', 'js/renderers/code.js', 'js/renderers/graph.js', 'js/renderers/array.js', 'js/renderers/index.js', 'js/site.js', 'js/map.js', 'js/mouse.js', 'js/bgm.js', 'img/favicon.svg', 'audio/bgm.mp3']) {
+    for (const file of ['css/style.css', 'css/visualizer.css', 'js/visualizer.js', 'js/player-state.js', 'js/controls.js', 'js/language-select.js', 'js/select-options.js', 'js/focus-guard.js', 'js/playback.js', 'js/request-gate.js', 'js/renderers/code.js', 'js/renderers/graph.js', 'js/renderers/array.js', 'js/renderers/index.js', 'js/site.js', 'js/map.js', 'js/comments.js', 'js/compose.js', 'img/favicon.svg']) {
         assert.ok(existsSync(join(FRONTEND_DIR, file)), file);
     }
 });

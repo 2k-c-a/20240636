@@ -12,35 +12,29 @@
     <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 </head>
 <body>
-    <header>
-        <h1>알고리즘 실행 시각화</h1>
-        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header">
+        <div class="header-row">
+            <a class="brand" href="index.html" aria-label="알고리즘 실행 시각화 홈"><span class="brand-mark" aria-hidden="true">A<span>↗</span></span><span class="brand-text">알고리즘 실행 시각화<span class="brand-caption">코드의 흐름을 이해하는 시간</span></span></a>
+            <div class="account-area" data-auth-menu><a class="account-login" href="login.html">로그인</a><a class="account-signup" href="signup.html">회원가입</a></div>
+        </div>
+        <nav class="site-nav" aria-label="주 메뉴">
+            <ul class="nav-root">
+                <li><a href="index.html">홈</a></li>
+                <li><details class="nav-group"><summary>알고리즘 학습 <span aria-hidden="true">⌄</span></summary><ul class="nav-submenu"><li><a href="visualizer.html">실행 시각화<span>9개 알고리즘 · 36개 예제</span></a></li><li><a href="info.html#guide">학습 가이드<span>한 단계씩 따라가는 방법</span></a></li></ul></details></li>
+                <li><details class="nav-group"><summary>커뮤니티 <span aria-hidden="true">⌄</span></summary><ul class="nav-submenu"><li><a href="board.html">질문 게시판<span>질문하고 함께 답하기</span></a></li><li><a href="write.html">게시글 작성<span>새 질문 남기기</span></a></li></ul></details></li>
+                <li><details class="nav-group"><summary>사이트 안내 <span aria-hidden="true">⌄</span></summary><ul class="nav-submenu"><li><a href="info.html">서비스 소개</a></li><li><a href="map.html">찾아오는 길 · 지도</a></li></ul></details></li>
+            </ul>
+            <a class="nav-start" href="visualizer.html">학습 시작하기 <span aria-hidden="true">↗</span></a>
+        </nav>
     </header>
 
-    <nav aria-label="주 메뉴">
-        <ul>
-            <li><a href="index.html">홈</a></li>
-            <li><a href="visualizer.html">시각화</a></li>
-            <li><a href="board.html">게시판</a></li>
-            <li><a href="info.html">소개</a></li>
-            <li><a href="idea.html">아이디어</a></li>
-            <li><a href="map.html">지도</a></li>
-            <li><a href="gallery.html">갤러리</a></li>
-            <li><a href="contact.html">문의</a></li>
-            <li data-auth-menu><a href="login.html">로그인</a></li>
-        </ul>
-    </nav>
-
     <main id="main" class="wide">
-        <section>
-            <h2>알고리즘 실행 과정 보기</h2>
+        <section class="page-intro">
+            <p class="eyebrow">ALGORITHM WORKSPACE</p><h1>알고리즘 실행 과정 보기</h1>
             <p class="notice">준비된 예제의 실행 기록을 재생합니다. 입력한 코드를 실제로 실행하는 기능은 아닙니다.</p>
             <div id="viz-notices"></div>
-            <p>
-                버튼이나 슬라이더로 한 단계씩 진행하거나 자동 재생(0.5배·1배·2배속)으로 보면서, 방금 실행한 연산이 코드의 어느 줄인지와 그 결과로 상태(노드, 큐, 호출 스택, 배열의 칸)가 어떻게 바뀌었는지를
-                함께 확인하세요. BFS·격자 미로, DFS, 이분 탐색, 버블 정렬, 유니온 파인드, 다익스트라, 배낭 DP, 위상 정렬, 투 포인터를 Python, C++, Java, Kotlin, Rust, C, JavaScript 코드로 볼 수 있습니다.
-                언어를 바꿔도 보고 있는 단계와 상태는 그대로 유지되고, 알고리즘이나 예제를 바꾸면 처음(0단계)부터 다시 시작합니다.
-            </p>
+            <p>알고리즘과 예제를 선택하고, 다음 단계로 이동하며 코드와 자료구조의 변화를 살펴보세요. 언어를 바꿔도 현재 단계는 유지됩니다. <a href="info.html#guide">학습 가이드 보기 →</a></p>
         </section>
 
         <section class="viz">
@@ -114,11 +108,7 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
-    </footer>
-
-    <script src="../js/mouse.js" defer></script>
+    <footer class="site-footer"><div class="footer-inner"><div><strong>알고리즘 실행 시각화</strong><p>한 줄의 코드에서, 이해의 순간까지.</p></div><div class="footer-links"><a href="info.html">소개</a><a href="map.html">지도</a><a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub · SNS<span class="visually-hidden"> (새 창에서 열림)</span></a><a href="mailto:woohyeuk11@gmail.com">이메일</a></div><p class="footer-copy">© 2026 알고리즘 실행 시각화</p></div></footer>
     <script type="module" src="../js/site.js"></script>
     <script type="module" src="../js/visualizer.js"></script>
 </body>

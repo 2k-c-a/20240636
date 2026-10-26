@@ -1,3 +1,9 @@
+## 댓글 기능 추가
+
+기존 migration 1~5가 적용된 프로젝트에는 `migrations/202610260001_comments.sql`만 한 번 추가 실행합니다. 댓글 테이블·RLS·표시명 트리거를 생성하며 기존 회원과 게시글은 유지합니다. 신규 프로젝트는 migration 6개를 파일명 순서대로 실행합니다.
+
+검증: `node scripts/run-db-tests.mjs --only comments --verbose` (프로젝트 루트). 로컬 임시 PostgreSQL에서 비회원·회원 A/B·프로필 없는 회원의 권한과 게시글 삭제 시 댓글 정리를 확인합니다. 실제 Supabase에서는 테스트 SQL을 실행하지 마세요.
+
 # Supabase 데이터베이스 (프로필·게시글)
 
 회원 프로필과 게시판 글의 테이블, 제약, 접근 권한(RLS), 동시 수정 방지 RPC를 SQL migration으로 관리합니다. 저장소만 복제해서는 원래 Supabase 프로젝트의 설정이 복제되지 않으므로, 새 프로젝트에서는 아래 순서대로 이 SQL을 적용합니다. 계약(컬럼·제약·RPC 인자와 결과)은 [docs/CONTRACTS.md](../docs/CONTRACTS.md) §10이 최종본입니다.

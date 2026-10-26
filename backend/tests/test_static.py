@@ -133,8 +133,8 @@ def test_health(client):
         (HOME, ("text/html",)),
         ("/web/css/style.css", ("text/css",)),
         # ES 모듈로 불러오는 스크립트는 JavaScript MIME이어야 브라우저가 실행한다.
-        ("/web/js/mouse.js", ("text/javascript",)),
-        ("/web/js/bgm.js", ("text/javascript",)),
+        ("/web/js/comments.js", ("text/javascript",)),
+        ("/web/js/compose.js", ("text/javascript",)),
         ("/web/js/site.js", ("text/javascript",)),
         ("/web/js/map.js", ("text/javascript",)),
         ("/web/js/trace-contract.js", ("text/javascript",)),
@@ -163,7 +163,6 @@ def test_health(client):
         ("/web/img/favicon-32.png", ("image/png",)),
         ("/web/img/favicon-16.png", ("image/png",)),
         ("/web/img/apple-touch-icon.png", ("image/png",)),
-        ("/web/audio/bgm.mp3", ("audio/mpeg",)),
     ],
 )
 def test_static_assets_are_served(client, url, content_types):
@@ -178,8 +177,8 @@ def test_home_page_asset_paths_resolve(client):
     urls = home_asset_urls()
     # 파싱이 실패해 빈 목록을 통과시키지 않도록 알려진 자산을 확인한다.
     assert "/web/css/style.css" in urls
-    assert "/web/js/mouse.js" in urls
-    assert "/web/audio/bgm.mp3" in urls
+    assert "/web/js/site.js" in urls
+    assert not any("bgm" in url for url in urls)
     assert all(url.startswith("/web/") for url in urls)
     for url in urls:
         assert client.get(url).status_code == 200, url

@@ -5,6 +5,7 @@
 import { ApiError } from './api.js';
 import { algorithmLabel, changesFrom, classifyError, isBusy, loadingPost, reducePost, validateDraft } from './board-state.js';
 import { bootBoard, fillAlgorithmSelect, formatDate, h, onAuthChange, say, setBusy, setupRelogin, showFieldErrors } from './board-common.js';
+import { mountComments } from './comments.js';
 
 const $ = (selector) => document.querySelector(selector);
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -35,6 +36,7 @@ async function main() {
     let user = initialUser;
     let state = loadingPost();
     let etag = null;
+    let commentsMounted = false;
 
     const isOwner = () => Boolean(user && state.post && state.post.author_id === user.id);
 
@@ -57,6 +59,7 @@ async function main() {
     function render() {
         renderPost();
         const phase = state.phase;
+        $('#comments-section').hidden = !state.post || ['gone', 'removed'].includes(phase);
         // 삭제된 글(gone)이어도 사용자가 쓰던 초안은 복사해 둘 수 있도록 보여 준다(저장만 막는다).
         const editing = ['editing', 'saving', 'conflict', 'relogin', 'gone'].includes(phase) && state.draft;
         form.hidden = !editing;
@@ -106,6 +109,10 @@ async function main() {
             const result = await fetchPost();
             etag = result.etag;
             dispatch({ type: 'loaded', post: result.post });
+            if (!commentsMounted) {
+                mountComments({ id, api, auth, user });
+                commentsMounted = true;
+            }
             document.title = `${result.post.title} | 알고리즘 실행 시각화`;
         } catch (error) {
             const failure = info(error, false);

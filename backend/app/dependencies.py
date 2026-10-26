@@ -17,6 +17,7 @@ from .schemas.user import VerifiedUser
 from .services.auth import TokenVerifier
 from .services.posts import PostStore
 from .services.profiles import ProfileStore
+from .services.comments import CommentStore
 
 MAX_TOKEN_LENGTH = 4096
 
@@ -27,6 +28,7 @@ class Services:
     verifier: TokenVerifier
     profiles: ProfileStore
     posts: PostStore
+    comments: CommentStore | None = None
 
 
 def get_services(request: Request) -> Services:

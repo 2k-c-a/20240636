@@ -1,9 +1,7 @@
 // 공통 스크립트(ES 모듈). 모든 페이지에서 불러옵니다.
 // - 현재 페이지에 해당하는 메뉴 링크에 aria-current="page"를 표시합니다.
-// - 실습용 양식(data-demo-form)이 입력 내용을 전송하지 않게 막습니다.
-// - 저장된 로그인 세션이 있으면(또는 회원 화면이면) 메뉴의 로그인 항목을 "내 정보·로그아웃"으로 바꿉니다.
+// - 로그인 상태에 따라 오른쪽 위 계정 영역을 갱신합니다.
 
-export const DEMO_FORM_MESSAGE = '실습용 양식입니다. 입력한 내용은 전송되거나 저장되지 않습니다.';
 
 /**
  * 메뉴 링크 중 현재 페이지를 가리키는 링크의 인덱스를 돌려줍니다. 없으면 -1입니다.
@@ -32,15 +30,6 @@ export function markCurrentPage(doc, currentUrl) {
     });
 }
 
-export function blockDemoForms(doc) {
-    doc.querySelectorAll('form[data-demo-form]').forEach((form) => {
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const status = form.querySelector('[data-demo-status]');
-            if (status) status.textContent = DEMO_FORM_MESSAGE;
-        });
-    });
-}
 
 function safeLocalStorage() {
     try {
@@ -50,9 +39,38 @@ function safeLocalStorage() {
     }
 }
 
+// Native disclosures support touch and keyboard; pointer hover opens the same menu.
+export function mountNavigation(doc) {
+    const groups = [...doc.querySelectorAll('.nav-group')];
+    const closeOthers = (current) => groups.forEach((group) => { if (group !== current) group.open = false; });
+    for (const group of groups) {
+        group.addEventListener('pointerenter', (event) => {
+            if (event.pointerType !== 'mouse') return;
+            closeOthers(group);
+            group.open = true;
+        });
+        group.addEventListener('pointerleave', () => {
+            if (!group.contains(doc.activeElement)) group.open = false;
+        });
+        group.addEventListener('focusout', (event) => {
+            if (!group.contains(event.relatedTarget)) group.open = false;
+        });
+        group.addEventListener('toggle', () => { if (group.open) closeOthers(group); });
+        group.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                group.open = false;
+                group.querySelector('summary').focus();
+            }
+        });
+    }
+    doc.addEventListener('click', (event) => {
+        if (!event.target.closest('.nav-group')) closeOthers(null);
+    });
+}
+
 if (typeof document !== 'undefined') {
     markCurrentPage(document, window.location.href);
-    blockDemoForms(document);
+    mountNavigation(document);
     // 로그인 표시가 실패해도 페이지의 다른 기능에는 영향을 주지 않습니다.
     import('./auth-menu.js')
         .then((menu) => menu.mountAuthMenu(document, safeLocalStorage()))

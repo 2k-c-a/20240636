@@ -18,6 +18,8 @@ from .security import SecurityHeadersMiddleware
 from .routers import config as config_router
 from .routers import me as me_router
 from .routers import posts as posts_router
+from .routers import comments as comments_router
+from .services.comments import CommentStore, SupabaseCommentStore
 from .services.auth import SupabaseTokenVerifier, TokenVerifier
 from .services.posts import PostStore, SupabasePostStore
 from .services.profiles import ProfileStore, SupabaseProfileStore
@@ -43,6 +45,7 @@ def create_app(
     token_verifier: TokenVerifier | None = None,
     profile_store: ProfileStore | None = None,
     post_store: PostStore | None = None,
+    comment_store: CommentStore | None = None,
     http_client: httpx.Client | None = None,
 ) -> FastAPI:
     """앱을 만든다. 인자를 모두 생략하면 환경 변수와 `backend/.env`에서 설정을 처음 쓸 때 읽는다.
@@ -66,6 +69,7 @@ def create_app(
         verifier=token_verifier or SupabaseTokenVerifier(shared_client),
         profiles=profile_store or SupabaseProfileStore(shared_client),
         posts=post_store or SupabasePostStore(shared_client),
+        comments=comment_store or SupabaseCommentStore(shared_client),
     )
     app.add_middleware(RequestIdMiddleware)
     app.add_middleware(SecurityHeadersMiddleware)
@@ -82,6 +86,7 @@ def create_app(
     app.include_router(config_router.router)
     app.include_router(me_router.router)
     app.include_router(posts_router.router)
+    app.include_router(comments_router.router)
 
     # html 문서의 ../css, ../js, ../img 상대경로를 그대로 유지합니다.
     app.mount("/web", StaticFiles(directory=settings.frontend_dir), name="web")

@@ -25,8 +25,8 @@ const sqlFiles = [
 ];
 const sourceFiles = [...sqlFiles, 'supabase/tests/concurrency.mjs', 'scripts/run-db-tests.mjs', 'supabase/README.md'];
 
-test('migration은 정해진 다섯 파일이고 12자리 버전 순서로 정렬된다', () => {
-    assert.deepEqual(migrationNames, ['202610140001_profiles_posts.sql', '202610140002_rls_triggers.sql', '202610140003_post_mutations.sql', '202610160001_posts_rpc_only.sql', '202610250001_learning_algorithms.sql']);
+test('migration은 정해진 여섯 파일이고 12자리 버전 순서로 정렬된다', () => {
+    assert.deepEqual(migrationNames, ['202610140001_profiles_posts.sql', '202610140002_rls_triggers.sql', '202610140003_post_mutations.sql', '202610160001_posts_rpc_only.sql', '202610250001_learning_algorithms.sql', '202610260001_comments.sql']);
     for (const name of migrationNames) assert.match(name, /^\d{12}_[a-z_]+\.sql$/);
     for (const [name, sql] of Object.entries(migrations)) assert.ok(sql.trim().length > (name === '202610250001_learning_algorithms.sql' ? 100 : 500), `${name}이 비어 있다`);
 });

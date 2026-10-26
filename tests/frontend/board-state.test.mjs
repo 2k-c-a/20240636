@@ -348,11 +348,11 @@ test('게시판 페이지: 공통 구성, 상태 알림 영역, 입력의 레이
 });
 
 test('게시판 페이지: 다시 로그인 폼이 같은 페이지 안에 있다(초안 보존)', () => {
-    for (const name of ['board', 'post']) assert.match(html(name), /id="relogin-form"/);
+    for (const name of ['write', 'post']) assert.match(html(name), /id="relogin-form"/);
 });
 
 test('사용자 글은 textContent로만 넣는다(HTML로 해석하는 API를 쓰지 않는다)', () => {
-    for (const name of ['board', 'post', 'board-common']) {
+    for (const name of ['board', 'post', 'compose', 'comments', 'board-common']) {
         const source = js(name);
         for (const banned of [/\.innerHTML/, /\.outerHTML/, /insertAdjacentHTML/, /document\.write/, /\beval\(/, /new Function/, /dangerouslySet/]) {
             assert.ok(!banned.test(source), `${name}.js: ${banned}`);

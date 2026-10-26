@@ -23,7 +23,7 @@ const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const exe = (name) => (process.platform === 'win32' ? `${name}.exe` : name);
 
 /** 쓸 수 있는 테스트 이름. 실행 순서이기도 하다. */
-export const SUITES = ['migration_steps', 'rls', 'post_mutations', 'concurrency'];
+export const SUITES = ['migration_steps', 'rls', 'post_mutations', 'comments', 'concurrency'];
 
 /** 명령줄을 잘못 쓴 경우. 스택 대신 메시지만 보여 주고 종료 코드 1로 끝난다. */
 export class UsageError extends Error {}

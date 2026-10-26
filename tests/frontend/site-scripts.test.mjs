@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { DEMO_FORM_MESSAGE, blockDemoForms, findCurrentLinkIndex, markCurrentPage } from '../../frontend/js/site.js';
+import { findCurrentLinkIndex, markCurrentPage } from '../../frontend/js/site.js';
 import {
     DEFAULT_PLACE, MAX_QUERY_LENGTH, buildEmbedUrl, buildExternalUrls, normalizeQuery,
 } from '../../frontend/js/map.js';
@@ -52,20 +52,6 @@ test('markCurrentPage는 현재 링크에만 aria-current를 두고 이전 표�
     assert.deepEqual(links.map((l) => l.current()), [undefined, undefined, undefined, undefined, 'page', undefined]);
 });
 
-test('blockDemoForms는 제출을 막고 안내 문구를 보여준다', () => {
-    let handler;
-    const status = { textContent: '' };
-    const form = {
-        addEventListener: (type, fn) => { assert.equal(type, 'submit'); handler = fn; },
-        querySelector: (selector) => (selector === '[data-demo-status]' ? status : null),
-    };
-    blockDemoForms({ querySelectorAll: (selector) => (selector === 'form[data-demo-form]' ? [form] : []) });
-
-    let prevented = false;
-    handler({ preventDefault: () => { prevented = true; } });
-    assert.equal(prevented, true);
-    assert.equal(status.textContent, DEMO_FORM_MESSAGE);
-});
 
 // ---------- map.js ----------
 
