@@ -203,7 +203,7 @@ test('모든 페이지가 기본 구조(언어, viewport, 제목, 파비콘, 스
         assert.match(tags.find((t) => t.name === 'meta' && t.attrs.name === 'viewport')?.attrs.content ?? '', /width=device-width/, `${file}: viewport`);
         assert.match(stripComments(html).match(/<title>([\s\S]*?)<\/title>/)?.[1].trim() ?? '', /\S/, `${file}: title`);
 
-        const icons = tags.filter((t) => t.name === 'link' && /icon/.test(t.attrs.rel ?? '')).map((t) => t.attrs.href);
+        const icons = tags.filter((t) => t.name === 'link' && /icon/.test(t.attrs.rel ?? '')).map((t) => t.attrs.href.split('?')[0]);
         assert.deepEqual(icons, ['../img/favicon.svg', '../img/favicon-32.png', '../img/favicon-16.png', '../img/apple-touch-icon.png'], `${file}: 파비콘`);
         assert.ok(tags.some((t) => t.name === 'link' && t.attrs.rel === 'stylesheet' && t.attrs.href === '../css/style.css'), `${file}: style.css`);
         assert.ok(tags.some((t) => t.name === 'script' && t.attrs.type === 'module' && t.attrs.src === '../js/site.js'), `${file}: site.js`);
