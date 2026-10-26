@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/board.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body data-board-page="post">
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <p><a href="board.html">← 목록으로</a></p>
+            <noscript><p class="notice">게시판은 JavaScript가 필요합니다. 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+            <p id="post-status" class="board-message" role="status" aria-live="polite" tabindex="-1">글을 불러오는 중입니다…</p>
+            <p><button type="button" id="post-retry" class="button-secondary" hidden>다시 시도</button> <a id="post-list-link" href="board.html" hidden>목록으로 돌아가기</a></p>
+
+            <article id="post-view" hidden>
+                <h2 id="post-title"></h2>
+                <p class="board-meta">
+                    <span id="post-author"></span>
+                    <time id="post-date"></time>
+                    <span id="post-edited"></span>
+                    <span id="post-algorithm" class="board-tag" hidden></span>
+                </p>
+                <div id="post-body" class="board-body"></div>
+                <div id="post-actions" class="board-actions" hidden>
+                    <button type="button" id="post-edit">수정</button>
+                    <button type="button" id="post-delete" class="board-danger">삭제</button>
+                </div>
+                <div id="delete-confirm" class="board-confirm" role="group" aria-label="삭제 확인" hidden>
+                    <p>이 글을 삭제할까요? 삭제한 글은 되돌릴 수 없습니다.</p>
+                    <button type="button" id="delete-confirm-button" class="board-danger">삭제합니다</button>
+                    <button type="button" id="delete-cancel" class="button-secondary">취소</button>
+                </div>
+            </article>
+
+            <div id="conflict-box" class="board-conflict" hidden>
+                <h3>다른 곳에서 바뀐 최신 글</h3>
+                <p class="small">내가 쓰던 내용은 아래 입력창에 그대로 있습니다. 최신 글과 비교한 뒤 계속 저장하거나 취소하세요.</p>
+                <p><strong>제목</strong></p>
+                <div id="conflict-title" class="board-body"></div>
+                <p><strong>내용</strong></p>
+                <div id="conflict-body" class="board-body"></div>
+                <button type="button" id="conflict-use-latest">최신 글을 기준으로 내 내용 저장하기</button>
+            </div>
+
+            <form id="post-form" method="post" action="post.html" novalidate hidden>
+                <h3>글 수정</h3>
+                <label for="edit-title">제목 (1~100자)</label>
+                <input type="text" id="edit-title" name="title" maxlength="200" autocomplete="off" required aria-describedby="edit-title-error">
+                <p id="edit-title-error" class="board-field-error" data-field-error="title" data-for="edit-title" hidden></p>
+                <label for="edit-algorithm">관련 알고리즘 (선택)</label>
+                <select id="edit-algorithm" name="algorithm" aria-describedby="edit-algorithm-error"></select>
+                <p id="edit-algorithm-error" class="board-field-error" data-field-error="algorithm" data-for="edit-algorithm" hidden></p>
+                <label for="edit-body">내용 (1~10,000자)</label>
+                <textarea id="edit-body" name="body" rows="8" maxlength="20000" required aria-describedby="edit-body-error"></textarea>
+                <p id="edit-body-error" class="board-field-error" data-field-error="body" data-for="edit-body" hidden></p>
+                <button type="submit">저장</button>
+                <button type="button" id="post-cancel" class="button-secondary">수정 취소</button>
+                <p id="post-form-message" class="board-message" role="status" hidden></p>
+            </form>
+            <form id="relogin-form" class="board-relogin" method="post" action="login.html" novalidate hidden>
+                <h3>다시 로그인</h3>
+                <p class="small">로그인하면 작성 중인 내용은 그대로 유지됩니다. 다른 페이지로 이동하지 않습니다.</p>
+                <p data-relogin-message class="board-message" role="status" hidden></p>
+                <label for="relogin-email">이메일</label>
+                <input type="email" id="relogin-email" name="email" autocomplete="email" required>
+                <label for="relogin-password">비밀번호</label>
+                <input type="password" id="relogin-password" name="password" autocomplete="current-password" required>
+                <button type="submit">로그인</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script type="module" src="../js/site.js"></script>
+    <script type="module" src="../js/post.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+/* 게시판 목록(board.html)과 글 화면(post.html) */
+
+.board-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.board-toolbar select {
+    min-width: 12rem;
+    padding: 8px;
+}
+
+.board-message {
+    margin: 0 0 12px;
+    padding: 10px 14px;
+    background-color: #e8f1f8;
+    border-left: 4px solid #2f6f9f;
+    border-radius: 4px;
+}
+
+.board-message[hidden],
+.board-field-error[hidden],
+.board-relogin[hidden],
+.board-confirm[hidden],
+.board-conflict[hidden],
+.board-actions[hidden],
+#post-view[hidden],
+#post-form[hidden],
+#board-form[hidden],
+#board-more[hidden],
+#board-retry[hidden],
+#post-retry[hidden],
+#post-list-link[hidden],
+#post-algorithm[hidden] {
+    display: none;
+}
+
+.board-message:empty {
+    display: none;
+}
+
+.board-error {
+    color: #7a1212;
+    background-color: #fdecea;
+    border-left-color: #c62828;
+}
+
+.board-ok {
+    color: #1b4d1f;
+    background-color: #e8f5e9;
+    border-left-color: #2e7d32;
+}
+
+.board-field-error {
+    margin: 4px 0 0;
+    color: #7a1212;
+    font-size: 0.9rem;
+}
+
+.board-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.board-item {
+    padding: 12px 0;
+    border-top: 1px solid #d5e3ee;
+}
+
+.board-item h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    overflow-wrap: anywhere;
+}
+
+.board-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.board-tag {
+    padding: 0 8px;
+    color: #24587e;
+    background-color: #e8f1f8;
+    border-radius: 10px;
+}
+
+.board-more {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+/* 사용자가 쓴 글은 textContent로만 넣고 줄바꿈은 여기서 보여 준다. */
+.board-body {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 12px;
+    background-color: #f7fafc;
+    border-radius: 4px;
+}
+
+#post-title {
+    overflow-wrap: anywhere;
+}
+
+.board-actions,
+.board-confirm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.board-confirm {
+    padding: 12px;
+    background-color: #fdecea;
+    border-radius: 4px;
+}
+
+.board-confirm p {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.board-conflict {
+    margin: 16px 0;
+    padding: 12px;
+    background-color: #fff8e1;
+    border-left: 4px solid #f0a500;
+    border-radius: 4px;
+}
+
+.board-danger {
+    background-color: #b3261e;
+}
+
+form button.board-danger:hover,
+.board-danger:hover {
+    background-color: #8c1d18;
+}
+
+#board-form,
+#post-form,
+.board-relogin {
+    max-width: 640px;
+}
+
+#board-form textarea,
+#post-form textarea {
+    resize: vertical;
+}
+
+.board-relogin {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #fff8e1;
+    border-radius: 4px;
+}
+
+.board-relogin h3 {
+    margin-top: 0;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

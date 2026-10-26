@@ -1,0 +1,729 @@
+/* 시각화 페이지 전용 스타일. 공통 스타일은 style.css에 있다. */
+
+main.wide {
+    max-width: 1100px;
+}
+
+.viz h3 {
+    margin: 0 0 12px;
+    color: #24587e;
+    font-size: 1.1rem;
+}
+
+.viz h4 {
+    margin: 0 0 8px;
+    color: #24587e;
+    font-size: 1rem;
+}
+
+.viz-status {
+    padding: 12px 16px;
+    background-color: #f5f9fc;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+}
+
+.viz-status p {
+    margin: 0 0 8px;
+}
+
+.viz-status details {
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+/* 방금 실행한 연산과 설명 */
+.viz-message {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background-color: #f5f9fc;
+    border-left: 4px solid #2f6f9f;
+    border-radius: 4px;
+}
+
+.viz-operation {
+    margin: 0 0 4px;
+    color: #24587e;
+}
+
+.viz-text {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+/* 코드와 그래프: 넓은 화면에서는 나란히, 좁은 화면에서는 위아래로 */
+.viz-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+.viz-panel {
+    min-width: 0; /* grid 안에서 긴 코드 줄이 칸을 밀어내지 않게 한다 */
+}
+
+@media screen and (min-width: 900px) {
+    .viz-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+}
+
+/* 코드 제목과 언어 선택 */
+.viz-code-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-bottom: 8px;
+}
+
+.viz-code-head h4 {
+    margin: 0;
+}
+
+.viz-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.viz-lang label {
+    color: #24587e;
+    font-size: 0.9rem;
+}
+
+.viz-lang select {
+    min-height: 44px;
+    padding: 6px 12px;
+    color: #1f2933;
+    font: inherit;
+    background-color: #fff;
+    border: 1px solid #5b7f9a;
+    border-radius: 6px;
+}
+
+.viz-lang select:disabled {
+    color: #4b5563;
+    background-color: #eceff1;
+}
+
+/* 코드 영역: 강조된 줄은 색 + 왼쪽 막대 + ▶ 표시로 구분한다 */
+.viz-code pre.code {
+    max-height: 60vh;
+}
+
+/* 긴 줄은 가로로 밀지 않고 줄바꿈한다. 줄 번호와 ▶ 표시는 첫 줄 옆에만 있고, 이어지는 줄은 코드 열에 맞춰 들여 쓴다.
+   (C의 for 문처럼 긴 줄이 강조될 때 좁은 화면에서 줄의 일부가 잘려 "방금 실행한 줄"을 읽을 수 없게 되는 것을 막는다.) */
+.viz-code pre.code .line {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 4px;
+}
+
+.viz-code pre.code .line::before {
+    flex: none;
+}
+
+.viz-code pre.code .line .src {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.viz-code pre.code .line .marker {
+    display: inline-block;
+    flex: none;
+    width: 1.2em;
+    margin-right: 4px;
+    color: #ffd54a;
+    visibility: hidden;
+}
+
+.viz-code pre.code .line.hl {
+    box-shadow: inset 4px 0 0 #ffd54a;
+}
+
+.viz-code pre.code .line.hl .marker {
+    visibility: visible;
+}
+
+/* 그래프 */
+.graph-figure {
+    margin: 0 0 12px;
+}
+
+.graph-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    background-color: #fff;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+}
+
+.graph-caption {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.edge {
+    fill: none;
+    stroke: #6b7280;
+    stroke-width: 0.9;
+}
+
+.edge--active {
+    stroke: #c2410c;
+    stroke-width: 1.8;
+}
+
+.arrow path {
+    fill: #6b7280;
+}
+
+.arrow--active path {
+    fill: #c2410c;
+}
+
+.node .base {
+    stroke-width: 1.2;
+}
+
+.node--undiscovered .base {
+    fill: #fff;
+    stroke: #6b7280;
+    stroke-dasharray: 2.2 1.6;
+}
+
+.node--discovered .base {
+    fill: #e0f2fe;
+    stroke: #0369a1;
+}
+
+.node--queued .base,
+.node--stacked .base {
+    fill: #bfdbfe;
+    stroke: #1d4ed8;
+    stroke-width: 1.8;
+}
+
+.node--current .base {
+    fill: #fde68a;
+    stroke: #92400e;
+    stroke-width: 2;
+}
+
+.node .ring {
+    fill: none;
+}
+
+.node .ring--current {
+    stroke: #92400e;
+    stroke-width: 0.9;
+}
+
+.node .ring--neighbor {
+    stroke: #c2410c;
+    stroke-width: 1.4;
+    stroke-dasharray: 1.3 1.3;
+}
+
+.node--processed .base {
+    fill: #374151;
+    stroke: #111827;
+}
+
+.node .label {
+    fill: #111827;
+    font-size: 6.5px;
+    font-weight: 700;
+    text-anchor: middle;
+}
+
+.node--processed .label {
+    fill: #fff;
+}
+
+/* 글자가 간선과 겹쳐도 읽히도록 흰 테두리를 두른다(글자를 칠하기 전에 테두리를 먼저 칠한다). */
+.node .tag {
+    fill: #111827;
+    font-size: 4.4px;
+    text-anchor: middle;
+    paint-order: stroke;
+    stroke: #fff;
+    stroke-width: 2.4px;
+    stroke-linejoin: round;
+}
+
+.node .tag--neighbor {
+    fill: #9a3412;
+    font-weight: 700;
+}
+
+/* 큐: 앞에서 뒤 순서 */
+.queue-view {
+    margin-bottom: 12px;
+}
+
+.queue-caption {
+    margin: 0 0 6px;
+    font-weight: 700;
+    color: #24587e;
+}
+
+.queue-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.queue-end {
+    padding: 2px 10px;
+    font-size: 0.85rem;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+.queue-items {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    min-height: 46px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.queue-item {
+    min-width: 40px;
+    padding: 8px 10px;
+    font-weight: 700;
+    text-align: center;
+    background-color: #bfdbfe;
+    border: 2px solid #1d4ed8;
+    border-radius: 6px;
+}
+
+.queue-item--empty {
+    font-weight: 400;
+    color: #374151;
+    background-color: #fff;
+    border: 2px dashed #6b7280;
+}
+
+/* 알고리즘·예제 선택 */
+.viz-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+}
+
+.viz-pick {
+    display: flex;
+    flex: 1 1 220px;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.viz-pick label {
+    color: #24587e;
+    font-size: 0.9rem;
+}
+
+.viz-pick select {
+    width: 100%;
+    min-height: 44px;
+    padding: 6px 12px;
+    color: #1f2933;
+    font: inherit;
+    background-color: #fff;
+    border: 1px solid #5b7f9a;
+    border-radius: 6px;
+}
+
+.viz-pick select:disabled {
+    color: #4b5563;
+    background-color: #eceff1;
+}
+
+/* DFS 호출 스택: 꼭대기를 맨 위에 둔다 */
+.stack-view {
+    margin-bottom: 12px;
+}
+
+.stack-caption {
+    margin: 0 0 6px;
+    font-weight: 700;
+    color: #24587e;
+}
+
+.stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.stack-item {
+    padding: 8px 12px;
+    background-color: #bfdbfe;
+    border: 2px solid #1d4ed8;
+    border-radius: 6px;
+    overflow-wrap: anywhere;
+}
+
+.stack-item--top {
+    background-color: #fde68a;
+    border: 3px solid #92400e;
+}
+
+.stack-item--empty {
+    color: #374151;
+    background-color: #fff;
+    border: 2px dashed #6b7280;
+}
+
+.stack-detail {
+    font-size: 0.9rem;
+}
+
+/* 배열 칸(이분 탐색, 버블 정렬). 상태는 색뿐 아니라 테두리 모양과 글자로도 구분한다. */
+.array-figure {
+    margin: 0 0 12px;
+}
+
+.array-target {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: #24587e;
+}
+
+.array-empty {
+    margin: 0 0 8px;
+    padding: 12px;
+    color: #374151;
+    background-color: #fff;
+    border: 2px dashed #6b7280;
+    border-radius: 6px;
+}
+
+.array-cells {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    padding: 4px 2px 6px;
+    color: #111827;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #6b7280;
+    border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+.cell-index {
+    color: #4b5563;
+    font-size: 0.75rem;
+}
+
+.cell-value {
+    max-width: 100%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.cell-tags {
+    min-height: 1.2em;
+    max-width: 100%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.cell--mid,
+.cell--compare {
+    background-color: #dbeafe;
+    border: 3px solid #1d4ed8;
+}
+
+.cell--out {
+    color: #4b5563;
+    background-color: #f3f4f6;
+    border-style: dashed;
+}
+
+.cell--swapped {
+    background-color: #fde68a;
+    border: 3px solid #92400e;
+}
+
+.cell--found,
+.cell--sorted {
+    color: #fff;
+    background-color: #374151;
+    border-color: #111827;
+}
+
+.cell--found .cell-index,
+.cell--sorted .cell-index {
+    color: #e5e7eb;
+}
+
+.legend-cell {
+    flex: none;
+    width: 56px;
+}
+
+/* 상태 목록 */
+.state-list {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 4px 12px;
+    margin: 0;
+    padding: 10px 12px;
+    background-color: #f5f9fc;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+}
+
+.state-list dt {
+    font-weight: 700;
+}
+
+.state-list dd {
+    margin: 0;
+}
+
+/* 범례 */
+.viz-legend {
+    margin-top: 16px;
+    padding: 8px 12px;
+    background-color: #f5f9fc;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+}
+
+.viz-legend summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.legend {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.legend-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.legend-swatch {
+    flex: none;
+    width: 34px;
+    height: 34px;
+}
+
+/* 조작 버튼: 좁은 화면에서는 화면 아래에 붙여 코드·그래프를 보면서도 항상 누를 수 있게 한다 */
+.viz-controls {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 8px 12px 10px;
+    background-color: #fff;
+    border-top: 2px solid #cfe0ee;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.viz-progress-line {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* 단계 슬라이더와 재생 속도 */
+.viz-scrub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.viz-scrub input[type="range"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 44px;
+    margin: 0;
+    accent-color: #1d4e75;
+}
+
+.viz-speed-label {
+    flex: none;
+    color: #24587e;
+    font-size: 0.9rem;
+}
+
+.viz-scrub select {
+    flex: none;
+    min-height: 44px;
+    padding: 4px 8px;
+    color: #1f2933;
+    font: inherit;
+    background-color: #fff;
+    border: 1px solid #5b7f9a;
+    border-radius: 6px;
+}
+
+.viz-scrub select:disabled {
+    color: #4b5563;
+    background-color: #eceff1;
+}
+
+.viz-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.viz-phase {
+    margin-left: 6px;
+    color: #4b5563;
+    font-weight: 400;
+}
+
+.viz-controls button {
+    flex: 1 1 auto; /* 글자 길이만큼 자리를 잡고 남는 폭을 나눠 가진다(재생 버튼의 글자가 바뀌어도 잘리지 않는다) */
+    min-height: 48px;
+    padding: 8px 4px;
+    white-space: nowrap;
+    color: #fff;
+    font: inherit;
+    font-size: min(1rem, 4vw); /* 아주 좁은 화면에서도 네 버튼이 한 줄에 들어오게 글자를 줄인다 */
+    background-color: #2f6f9f;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.viz-controls button.primary {
+    flex-grow: 1.3;
+    background-color: #1d4e75;
+}
+
+.viz-controls button:disabled {
+    color: #4b5563;
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* 좁은 화면: 가장 긴 코드 줄(들여쓰기 포함 약 34자)이 한 화면에 들어오도록 글자와 줄 번호 여백을 줄인다.
+   강조된 줄의 내용이 잘려 보이면 "방금 실행한 줄"을 읽을 수 없다. 그래도 넘치면 코드 영역 안에서만 가로 스크롤한다. */
+@media screen and (max-width: 500px) {
+    .viz-code pre.code {
+        font-size: 0.75rem;
+    }
+
+    .viz-code pre.code .line {
+        padding-right: 4px;
+    }
+
+    .viz-code pre.code .line::before {
+        width: 1.7em;
+        margin-right: 6px;
+    }
+
+    .viz-code pre.code .line .marker {
+        width: 1em;
+        margin-right: 2px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .state-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .state-list dd {
+        margin-bottom: 6px;
+    }
+}
+
+/* 가로로 눕힌 화면처럼 높이가 낮을 때: 조작줄이 화면의 절반 가까이 가리지 않도록 한 줄에 최대한 모은다. */
+@media screen and (max-height: 520px) {
+    .viz-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2px 8px;
+        padding: 4px 12px;
+    }
+
+    .viz-progress-line {
+        flex: 0 0 auto;
+    }
+
+    .viz-scrub {
+        flex: 1 1 240px;
+    }
+
+    .viz-scrub input[type="range"] {
+        height: 36px;
+    }
+
+    .viz-buttons {
+        flex: 1 1 280px;
+    }
+
+    .viz-controls button {
+        min-height: 40px;
+    }
+}
+
+
+/* 알고리즘 비용과 확장 학습 화면 */
+.algorithm-info { padding: 12px 16px; margin: 12px 0; border-left: 4px solid #2f6f9f; background: #edf5fa; overflow-wrap: anywhere; }
+.algorithm-info h4 { margin: 0 0 8px; }
+.algorithm-info p { margin: 5px 0; }
+.learning-scroll { max-width: 100%; overflow-x: auto; margin: 12px 0; }
+.learning-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+.learning-table caption { text-align: left; font-weight: bold; padding: 6px 0; }
+.learning-table th, .learning-table td { border: 1px solid #8b9ba8; padding: 7px; text-align: center; min-width: 35px; }
+.learning-active { background: #fff0a8; color: #172e40; outline: 2px solid #725300; outline-offset: -2px; font-weight: bold; }
+.learning-graph { display: block; width: 100%; max-height: 300px; }
+.learning-graph text { font: 13px sans-serif; fill: #172e40; }
+.learning-edge-label { stroke: white; stroke-width: 4px; paint-order: stroke; }
+.learning-grid { display: grid; gap: 6px; margin: 12px 0; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.learning-cell { border: 2px solid #456179; padding: 9px 4px; font-size: .8rem; overflow-wrap: anywhere; text-align: center; min-width: 0; }
+.learning-cell.wall { background: #35424c; color: white; border-style: dashed; }
+.learning-cell.path { border-style: double; border-width: 4px; background: #e8f2fc; }
+.viz-graph { min-width: 0; }

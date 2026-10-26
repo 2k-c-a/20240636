@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <p class="notice">이 페이지는 모바일 웹 수업 실습용입니다. 양식은 동작하지 않으며 입력한 내용은 전송되거나 저장되지 않습니다.</p>
+
+        <section>
+            <h2>문의하기</h2>
+            <!-- 실습용 양식: site.js가 전송을 막는다. JavaScript를 쓸 수 없어도 입력 내용이 주소창(GET)에 실리지 않도록 POST로 둔다. -->
+            <form method="post" action="contact.html" data-demo-form>
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" autocomplete="name">
+
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" autocomplete="email">
+
+                <label for="message">내용</label>
+                <textarea id="message" name="message" rows="5"></textarea>
+
+                <button type="submit">보내기</button>
+                <p data-demo-status role="status"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+</body>
+</html>

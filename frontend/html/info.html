@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <h2>사이트 소개</h2>
+            <p>
+                이 사이트는 모바일 웹 수업의 프로젝트로, 알고리즘의 실행 과정을 코드와 자료구조의 상태로
+                함께 보여주는 학습용 웹사이트입니다. 알고리즘을 처음 배우는 학생이 "이 줄이 실행되어
+                상태가 이렇게 바뀌었다"를 화면만 보고 설명할 수 있게 하는 것이 목표입니다.
+            </p>
+            <p class="notice">
+                <strong>현재 상태:</strong> 개발 중입니다. 9개 알고리즘의 36개 예제를 Python·C++·Java·Kotlin·Rust·C·JavaScript 코드로 볼 수 있고,
+                회원가입·로그인과 질문 게시판을 사용할 수 있습니다. 시각화는 준비한 예제의
+                실행 기록을 재생하는 방식이며 사용자가 입력한 코드를 실행하지 않습니다.
+            </p>
+            <p>
+                소스 코드는 <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub 프로필<span class="visually-hidden"> (새 창에서 열림)</span></a>에서
+                볼 수 있습니다. 학교 위치는 <a href="map.html">지도 페이지</a>에서 확인할 수 있습니다.
+            </p>
+        </section>
+
+        <section>
+            <h2>페이지 구성표</h2>
+            <div class="table-wrap">
+                <table>
+                    <caption>현재 만들어진 페이지 목록</caption>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>파일</th>
+                            <th>페이지</th>
+                            <th>주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>index.html</td>
+                            <td>홈</td>
+                            <td>사이트 목적과 현재 상태, 페이지 안내, 외부 링크</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>visualizer.html</td>
+                            <td>시각화</td>
+                            <td>BFS·격자 응용·DFS·탐색·정렬·유니온 파인드·최단 경로·배낭 DP·위상 정렬·투 포인터와 복잡도 학습</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>info.html</td>
+                            <td>소개</td>
+                            <td>사이트 소개, 구성표</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>idea.html</td>
+                            <td>아이디어</td>
+                            <td>프로젝트 기획서</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>map.html</td>
+                            <td>지도</td>
+                            <td>장안대학교 지도, 장소 검색</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>gallery.html</td>
+                            <td>갤러리</td>
+                            <td>이미지, 비디오 자리 (수업 실습)</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>contact.html</td>
+                            <td>문의</td>
+                            <td>문의 양식 (수업 실습, 전송 기능 없음)</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>login.html</td>
+                            <td>로그인</td>
+                            <td>로그인 (회원가입 signup.html, 비밀번호 재설정 reset-password.html, 내 정보 profile.html, 메일 링크 확인 auth-callback.html과 이어짐)</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>board.html</td>
+                            <td>게시판</td>
+                            <td>질문 목록·글쓰기 (글 보기·수정·삭제는 post.html)</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">공통 스타일: style.css · 공통 스크립트: site.js · 시각화 전용: visualizer.css, visualizer.js · 회원 화면 전용: auth.css, auth-pages.js · 게시판 전용: board.css, board.js, post.js</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>앞으로 만들 기능</h2>
+            <p>아래 기능은 아직 만들지 않았으므로 메뉴에 연결하지 않았습니다.</p>
+            <ul>
+                <li>일곱 언어 코드·설명·줄 매핑 제공, 실행 검증 보강</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+</body>
+</html>

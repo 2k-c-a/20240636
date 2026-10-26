@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <div id="bgm-player" class="bgm-player">
+        <button id="bgm-toggle" type="button" aria-label="배경음악 재생 또는 일시정지">▶</button>
+        <span id="bgm-time">0:00 / 0:00</span>
+    </div>
+    <!-- 배경음악 파일 자리: ../audio/파일명.mp3 를 넣으세요 -->
+    <audio id="bgm" loop>
+        <source src="../audio/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <h2>알고리즘 실행 과정을 눈으로 확인하는 학습 사이트</h2>
+            <p>
+                알고리즘 코드를 한 단계씩 따라가며, 그 단계가 자료구조의 상태를 어떻게 바꾸는지
+                한국어 설명과 함께 보여주는 학습용 웹사이트를 만들고 있습니다.
+                BFS·격자 미로, DFS, 이분 탐색, 버블 정렬, 유니온 파인드, 다익스트라, 배낭 DP, 위상 정렬, 투 포인터를 Python, C++, Java, Kotlin, Rust, C, JavaScript 코드로 살펴볼 수 있습니다.
+                준비한 예제의 실행 기록을 재생하는 방식이며, 입력한 코드를 실제로 실행하는 기능은 아닙니다.
+            </p>
+            <p class="notice">
+                <strong>개발 중입니다.</strong>
+                9개 알고리즘의 36개 예제를 한 단계씩 따라가며 언어를 전환하고 시간복잡도·공간복잡도와 구현 전제를 확인할 수 있습니다.
+                회원가입·로그인과 질문 게시판을 사용할 수 있습니다.
+            </p>
+            <a href="visualizer.html" class="button">BFS 시각화 보기</a>
+            <a href="idea.html" class="button">프로젝트 기획서 보기</a>
+        </section>
+
+        <section>
+            <h2>페이지 안내</h2>
+            <ul>
+                <li><a href="visualizer.html">시각화</a> - 알고리즘 실행 과정을 코드와 자료구조로 보기</li>
+                <li><a href="board.html">게시판</a> - 알고리즘 질문 읽기와 쓰기</li>
+                <li><a href="info.html">소개</a> - 사이트 소개와 페이지 구성표</li>
+                <li><a href="idea.html">아이디어</a> - 프로젝트 기획서</li>
+                <li><a href="map.html">지도</a> - 장안대학교 위치와 장소 검색</li>
+                <li><a href="gallery.html">갤러리</a> - 이미지와 비디오 (수업 실습)</li>
+                <li><a href="contact.html">문의</a> - 문의 양식 (수업 실습)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>마우스 이벤트 체험 (수업 실습)</h2>
+            <p>아래 박스에 마우스를 올렸다가 밖으로 이동해 보세요.</p>
+            <div id="box" class="mouse-box" data-hover-image="../img/pexels-erwin-bosman-118283-36927967.jpg">여기에 마우스를 올려 보세요!</div>
+        </section>
+
+        <section>
+            <h2>외부 링크</h2>
+            <ul>
+                <li><a href="mailto:woohyeuk11@gmail.com">이메일 링크</a></li>
+                <li><a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub 프로필 (sns 링크)<span class="visually-hidden"> (새 창에서 열림)</span></a></li>
+                <li><a href="map.html">지도 링크</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script src="../js/bgm.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+</body>
+</html>

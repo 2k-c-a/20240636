@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/board.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body data-board-page="board">
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <h2>질문 게시판</h2>
+            <noscript><p class="notice">게시판은 JavaScript가 필요합니다. 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+            <p>알고리즘을 공부하다 궁금한 점을 남기고 읽는 곳입니다. 누구나 읽을 수 있고, 글을 쓰려면 로그인이 필요합니다. 닉네임만 공개되며 이메일은 보이지 않습니다.</p>
+            <div class="board-toolbar">
+                <label for="board-filter">알고리즘 보기</label>
+                <select id="board-filter"></select>
+            </div>
+            <p id="board-status" class="board-message" role="status" aria-live="polite">글을 불러오는 중입니다…</p>
+            <ul id="board-list" class="board-list" aria-live="off"></ul>
+            <div class="board-more">
+                <button type="button" id="board-more" hidden>더 보기</button>
+                <button type="button" id="board-retry" class="button-secondary" hidden>다시 시도</button>
+            </div>
+        </section>
+
+        <section id="board-write">
+            <h2>글쓰기</h2>
+            <p id="board-write-gate">로그인 상태를 확인하는 중입니다…</p>
+            <form id="board-form" method="post" action="board.html" novalidate hidden>
+                <label for="board-title">제목 (1~100자)</label>
+                <input type="text" id="board-title" name="title" maxlength="200" autocomplete="off" required aria-describedby="board-title-error">
+                <p id="board-title-error" class="board-field-error" data-field-error="title" data-for="board-title" hidden></p>
+                <label for="board-algorithm">관련 알고리즘 (선택)</label>
+                <select id="board-algorithm" name="algorithm" aria-describedby="board-algorithm-error"></select>
+                <p id="board-algorithm-error" class="board-field-error" data-field-error="algorithm" data-for="board-algorithm" hidden></p>
+                <label for="board-body">내용 (1~10,000자)</label>
+                <textarea id="board-body" name="body" rows="8" maxlength="20000" required aria-describedby="board-body-error"></textarea>
+                <p id="board-body-error" class="board-field-error" data-field-error="body" data-for="board-body" hidden></p>
+                <button type="submit">글 올리기</button>
+                <p id="board-form-message" class="board-message" role="status" hidden></p>
+            </form>
+            <form id="relogin-form" class="board-relogin" method="post" action="login.html" novalidate hidden>
+                <h3>다시 로그인</h3>
+                <p class="small">로그인하면 작성 중인 내용은 그대로 유지됩니다. 다른 페이지로 이동하지 않습니다.</p>
+                <p data-relogin-message class="board-message" role="status" hidden></p>
+                <label for="relogin-email">이메일</label>
+                <input type="email" id="relogin-email" name="email" autocomplete="email" required>
+                <label for="relogin-password">비밀번호</label>
+                <input type="password" id="relogin-password" name="password" autocomplete="current-password" required>
+                <button type="submit">로그인</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script type="module" src="../js/site.js"></script>
+    <script type="module" src="../js/board.js"></script>
+</body>
+</html>

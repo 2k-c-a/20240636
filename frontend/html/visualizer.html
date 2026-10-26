@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시각화 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/visualizer.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main" class="wide">
+        <section>
+            <h2>알고리즘 실행 과정 보기</h2>
+            <p class="notice">준비된 예제의 실행 기록을 재생합니다. 입력한 코드를 실제로 실행하는 기능은 아닙니다.</p>
+            <div id="viz-notices"></div>
+            <p>
+                버튼이나 슬라이더로 한 단계씩 진행하거나 자동 재생(0.5배·1배·2배속)으로 보면서, 방금 실행한 연산이 코드의 어느 줄인지와 그 결과로 상태(노드, 큐, 호출 스택, 배열의 칸)가 어떻게 바뀌었는지를
+                함께 확인하세요. BFS·격자 미로, DFS, 이분 탐색, 버블 정렬, 유니온 파인드, 다익스트라, 배낭 DP, 위상 정렬, 투 포인터를 Python, C++, Java, Kotlin, Rust, C, JavaScript 코드로 볼 수 있습니다.
+                언어를 바꿔도 보고 있는 단계와 상태는 그대로 유지되고, 알고리즘이나 예제를 바꾸면 처음(0단계)부터 다시 시작합니다.
+            </p>
+        </section>
+
+        <section class="viz">
+            <noscript><p class="notice">이 페이지의 시각화는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+
+            <div class="viz-picker" role="group" aria-label="알고리즘과 예제 선택">
+                <div class="viz-pick">
+                    <label for="algo-select">알고리즘</label>
+                    <select id="algo-select" disabled></select>
+                </div>
+                <div class="viz-pick">
+                    <label for="example-select">예제</label>
+                    <select id="example-select" disabled></select>
+                </div>
+            </div>
+
+            <div id="viz-status" class="viz-status" role="status" tabindex="-1">
+                <p id="viz-status-text">예제를 불러오는 중입니다…</p>
+                <button type="button" id="viz-retry" class="button-secondary" hidden>다시 시도</button>
+                <details id="viz-error-details" hidden></details>
+            </div>
+
+            <div id="viz-body" hidden>
+                <h3 id="viz-title"></h3>
+                <section id="algorithm-info" class="algorithm-info" aria-label="시간복잡도와 구현 전제"></section>
+
+                <div class="viz-message" id="viz-live" aria-live="polite" aria-atomic="true">
+                    <p class="viz-operation"><span id="viz-sr-progress" class="visually-hidden"></span><span id="viz-operation-prefix">방금 실행한 연산: </span><strong id="viz-operation"></strong></p>
+                    <p class="viz-text" id="viz-message"></p>
+                </div>
+
+                <div class="viz-grid">
+                    <div class="viz-panel viz-code">
+                        <div class="viz-code-head">
+                            <h4>코드</h4>
+                            <div class="viz-lang">
+                                <label for="lang-select">언어</label>
+                                <select id="lang-select"></select>
+                            </div>
+                        </div>
+                        <div id="code-root"></div>
+                        <p class="small" id="code-notes"></p>
+                    </div>
+                    <div class="viz-panel viz-graph">
+                        <h4 id="viz-state-heading">그래프와 상태</h4>
+                        <div id="graph-root"></div>
+                    </div>
+                </div>
+
+                <details class="viz-legend" open>
+                    <summary id="viz-legend-title">범례: 노드 모양과 표시 보는 법</summary>
+                    <div id="legend-root"></div>
+                </details>
+            </div>
+
+            <div class="viz-controls" role="group" aria-label="실행 단계 조작">
+                <p class="viz-progress-line"><span id="viz-progress">단계 0 / 0</span> <span id="viz-phase" class="viz-phase"></span></p>
+                <div class="viz-scrub">
+                    <label for="viz-slider" class="visually-hidden">단계 이동</label>
+                    <input type="range" id="viz-slider" min="0" max="0" step="1" value="0" disabled>
+                    <label for="speed-select" class="viz-speed-label">속도</label>
+                    <select id="speed-select" disabled></select>
+                </div>
+                <div class="viz-buttons">
+                    <button type="button" id="btn-reset" disabled>처음으로</button>
+                    <button type="button" id="btn-prev" disabled>이전</button>
+                    <button type="button" id="btn-play" disabled>재생</button>
+                    <button type="button" id="btn-next" class="primary" disabled>다음</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+    <script type="module" src="../js/visualizer.js"></script>
+</body>
+</html>

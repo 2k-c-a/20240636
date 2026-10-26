@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body data-auth-page="login">
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <h2>로그인</h2>
+            <p>이 사이트에서 가입한 이메일 주소와 비밀번호로 로그인하세요.</p>
+            <noscript><p class="notice">회원 기능은 JavaScript가 필요합니다. 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+            <p id="origin-warning" class="notice" hidden>
+                주소가 서버에 설정된 앱 주소와 다릅니다. 이메일 링크가 동작하지 않을 수 있으니 설정된 주소로 접속해 주세요.
+            </p>
+            <p id="login-message" class="auth-message" role="status" data-auth-status hidden></p>
+            <form id="login-form" method="post" action="login.html" novalidate>
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+                <button type="submit">로그인</button>
+            </form>
+            <p id="login-signed-in" hidden>이미 로그인되어 있습니다. <a href="profile.html">내 정보</a> · <a href="index.html">홈</a></p>
+            <p class="small"><a href="signup.html">회원가입</a> · <a href="reset-password.html">비밀번호를 잊었나요?</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script type="module" src="../js/site.js"></script>
+    <script type="module" src="../js/auth-pages.js"></script>
+</body>
+</html>

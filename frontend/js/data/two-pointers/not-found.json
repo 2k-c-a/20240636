@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "two-pointers-not-found-v1",
+  "algorithmId": "two-pointers",
+  "exampleId": "not-found",
+  "input": {
+    "values": [2, 4, 6],
+    "target": 3
+  },
+  "codes": {
+    "python": {
+      "lines": [
+        "values = [",
+        "    2, 4, 6,",
+        "]",
+        "n = 3",
+        "target = 3",
+        "left = 0",
+        "right = 0",
+        "sum = 0",
+        "count = 0",
+        "while (right < n):",
+        "    sum = (sum + values[right])",
+        "    right = (right + 1)",
+        "    while ((target < sum) and (left < right)):",
+        "        sum = (sum - values[left])",
+        "        left = (left + 1)",
+        "    if (sum == target):",
+        "        count = (count + 1)",
+        "print(count)"
+      ],
+      "notes": "Python 리스트를 사용합니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "cpp": {
+      "lines": [
+        "#include <iostream>",
+        "int main() {",
+        "    int values[3] = {",
+        "        2, 4, 6,",
+        "    };",
+        "    int n = 3;",
+        "    int target = 3;",
+        "    int left = 0;",
+        "    int right = 0;",
+        "    int sum = 0;",
+        "    int count = 0;",
+        "    while ((right < n)) {",
+        "        sum = (sum + values[right]);",
+        "        right = (right + 1);",
+        "        while (((target < sum) && (left < right))) {",
+        "            sum = (sum - values[left]);",
+        "            left = (left + 1);",
+        "        }",
+        "        if ((sum == target)) {",
+        "            count = (count + 1);",
+        "        }",
+        "    }",
+        "    std::cout << count;",
+        "    std::cout << \"\\n\";",
+        "    return 0;",
+        "}"
+      ],
+      "notes": "C++ 고정 길이 배열을 사용합니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "java": {
+      "lines": [
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        int[] values = new int[] {",
+        "            2, 4, 6,",
+        "        };",
+        "        int n = 3;",
+        "        int target = 3;",
+        "        int left = 0;",
+        "        int right = 0;",
+        "        int sum = 0;",
+        "        int count = 0;",
+        "        while ((right < n)) {",
+        "            sum = (sum + values[right]);",
+        "            right = (right + 1);",
+        "            while (((target < sum) && (left < right))) {",
+        "                sum = (sum - values[left]);",
+        "                left = (left + 1);",
+        "            }",
+        "            if ((sum == target)) {",
+        "                count = (count + 1);",
+        "            }",
+        "        }",
+        "        System.out.print(count);",
+        "        System.out.println();",
+        "    }",
+        "}"
+      ],
+      "notes": "Java int 배열을 사용합니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "kotlin": {
+      "lines": [
+        "fun main() {",
+        "    val values = intArrayOf(",
+        "        2, 4, 6,",
+        "    )",
+        "    var n = 3",
+        "    var target = 3",
+        "    var left = 0",
+        "    var right = 0",
+        "    var sum = 0",
+        "    var count = 0",
+        "    while ((right < n)) {",
+        "        sum = (sum + values[right])",
+        "        right = (right + 1)",
+        "        while (((target < sum) && (left < right))) {",
+        "            sum = (sum - values[left])",
+        "            left = (left + 1)",
+        "        }",
+        "        if ((sum == target)) {",
+        "            count = (count + 1)",
+        "        }",
+        "    }",
+        "    println(count)",
+        "}"
+      ],
+      "notes": "Kotlin IntArray를 사용합니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "rust": {
+      "lines": [
+        "fn main() {",
+        "    let mut values: Vec<i32> = vec![",
+        "        2, 4, 6,",
+        "    ];",
+        "    let mut n: i32 = 3;",
+        "    let mut target: i32 = 3;",
+        "    let mut left: i32 = 0;",
+        "    let mut right: i32 = 0;",
+        "    let mut sum: i32 = 0;",
+        "    let mut count: i32 = 0;",
+        "    while (right < n) {",
+        "        sum = (sum + values[(right) as usize]);",
+        "        right = (right + 1);",
+        "        while ((target < sum) && (left < right)) {",
+        "            sum = (sum - values[(left) as usize]);",
+        "            left = (left + 1);",
+        "        }",
+        "        if (sum == target) {",
+        "            count = (count + 1);",
+        "        }",
+        "    }",
+        "    println!(\"{}\", count);",
+        "}"
+      ],
+      "notes": "Rust Vec<i32>를 사용하며 배열 인덱스를 usize로 바꿉니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "c": {
+      "lines": [
+        "#include <stdio.h>",
+        "int main(void) {",
+        "    int values[3] = {",
+        "        2, 4, 6,",
+        "    };",
+        "    int n = 3;",
+        "    int target = 3;",
+        "    int left = 0;",
+        "    int right = 0;",
+        "    int sum = 0;",
+        "    int count = 0;",
+        "    while ((right < n)) {",
+        "        sum = (sum + values[right]);",
+        "        right = (right + 1);",
+        "        while (((target < sum) && (left < right))) {",
+        "            sum = (sum - values[left]);",
+        "            left = (left + 1);",
+        "        }",
+        "        if ((sum == target)) {",
+        "            count = (count + 1);",
+        "        }",
+        "    }",
+        "    printf(\"%d\", count);",
+        "    printf(\"\\n\");",
+        "    return 0;",
+        "}"
+      ],
+      "notes": "C 고정 길이 배열을 사용합니다. 빈 배열은 자리 한 칸을 확보하되 논리적 길이는 0입니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    },
+    "javascript": {
+      "lines": [
+        "let values = [",
+        "    2, 4, 6,",
+        "];",
+        "let n = 3;",
+        "let target = 3;",
+        "let left = 0;",
+        "let right = 0;",
+        "let sum = 0;",
+        "let count = 0;",
+        "while ((right < n)) {",
+        "    sum = (sum + values[right]);",
+        "    right = (right + 1);",
+        "    while (((target < sum) && (left < right))) {",
+        "        sum = (sum - values[left]);",
+        "        left = (left + 1);",
+        "    }",
+        "    if ((sum == target)) {",
+        "        count = (count + 1);",
+        "    }",
+        "}",
+        "console.log(count);"
+      ],
+      "notes": "JavaScript 배열을 사용하며 예제 값은 정확히 표현되는 작은 정수입니다. 현재 예제의 입력을 선언부에 담은 실행 가능한 프로그램입니다. 초기화 선언은 0단계에서 준비하고 강조 연산 뒤의 상태를 보여 줍니다. 인덱스는 0부터 시작하며 마지막 출력은 결과 확인용입니다."
+    }
+  },
+  "steps": [
+    {
+      "index": 0, "eventId": "initial", "operation": "initial",
+      "lines": {"python": [], "cpp": [], "java": [], "kotlin": [], "rust": [], "c": [], "javascript": []},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 0, "right": 0, "sum": 0, "count": 0}},
+      "message": "예제 데이터와 작업 배열을 준비한 실행 전 상태입니다. 코드의 초기화 선언은 별도 단계로 재생하지 않습니다."
+    },
+    {
+      "index": 1, "eventId": "expand", "operation": "expand",
+      "lines": {"python": [12], "cpp": [14], "java": [14], "kotlin": [13], "rust": [13], "c": [14], "javascript": [12]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 0, "right": 1, "sum": 2, "count": 0}},
+      "message": "오른쪽 경계를 1로 늘려 합이 2이 되었습니다. right는 구간에 포함되지 않는 경계입니다."
+    },
+    {
+      "index": 2, "eventId": "expand", "operation": "expand",
+      "lines": {"python": [12], "cpp": [14], "java": [14], "kotlin": [13], "rust": [13], "c": [14], "javascript": [12]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 0, "right": 2, "sum": 6, "count": 0}},
+      "message": "오른쪽 경계를 2로 늘려 합이 6이 되었습니다. right는 구간에 포함되지 않는 경계입니다."
+    },
+    {
+      "index": 3, "eventId": "shrink", "operation": "shrink",
+      "lines": {"python": [15], "cpp": [17], "java": [17], "kotlin": [16], "rust": [16], "c": [17], "javascript": [15]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 1, "right": 2, "sum": 4, "count": 0}},
+      "message": "합이 목표보다 커 왼쪽 값을 빼고 경계를 1로 옮겼습니다. 현재 합은 4입니다."
+    },
+    {
+      "index": 4, "eventId": "shrink", "operation": "shrink",
+      "lines": {"python": [15], "cpp": [17], "java": [17], "kotlin": [16], "rust": [16], "c": [17], "javascript": [15]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 2, "right": 2, "sum": 0, "count": 0}},
+      "message": "합이 목표보다 커 왼쪽 값을 빼고 경계를 2로 옮겼습니다. 현재 합은 0입니다."
+    },
+    {
+      "index": 5, "eventId": "expand", "operation": "expand",
+      "lines": {"python": [12], "cpp": [14], "java": [14], "kotlin": [13], "rust": [13], "c": [14], "javascript": [12]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 2, "right": 3, "sum": 6, "count": 0}},
+      "message": "오른쪽 경계를 3로 늘려 합이 6이 되었습니다. right는 구간에 포함되지 않는 경계입니다."
+    },
+    {
+      "index": 6, "eventId": "shrink", "operation": "shrink",
+      "lines": {"python": [15], "cpp": [17], "java": [17], "kotlin": [16], "rust": [16], "c": [17], "javascript": [15]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 3, "right": 3, "sum": 0, "count": 0}},
+      "message": "합이 목표보다 커 왼쪽 값을 빼고 경계를 3로 옮겼습니다. 현재 합은 0입니다."
+    },
+    {
+      "index": 7, "eventId": "finish", "operation": "finish",
+      "lines": {"python": [18], "cpp": [23], "java": [23], "kotlin": [22], "rust": [22], "c": [23], "javascript": [21]},
+      "state": {"vars": {"values": [2, 4, 6], "n": 3, "target": 3, "left": 3, "right": 3, "sum": 0, "count": 0}},
+      "message": "모든 학습 연산을 마쳤습니다. 결과와 남은 상태를 확인하세요."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Python 가상환경과 캐시
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node 도구 (프런트엔드 테스트 실행용, 현재 외부 패키지 없음)
+node_modules/
+npm-debug.log*
+.vercel/
+
+# 비밀 설정 (.env.example은 Git에 포함)
+.env
+.env.*
+!.env.example
+
+# 운영체제 파일
+.DS_Store
+Thumbs.db
+
+# 실행 로그
+*.log

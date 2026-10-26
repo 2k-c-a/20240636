@@ -1,0 +1,6 @@
+[tool.vercel]
+entrypoint = "backend.app.main:app"
+
+# HTML responses need the application's dynamic Supabase CSP headers.
+[tool.vercel.fastapi.static]
+cdn = false

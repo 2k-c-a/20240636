@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지도 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section>
+            <h2>장안대학교 지도</h2>
+            <p id="place-info"><strong>장안대학교</strong> - 경기도 화성시 봉담읍 삼천병마로 일대</p>
+            <p>지도를 드래그해서 이동하고, +/- 버튼이나 마우스 휠로 확대·축소할 수 있습니다. 다른 장소를 검색할 수도 있습니다.</p>
+
+            <form id="map-search" class="map-search" role="search">
+                <label for="map-search-input" class="visually-hidden">검색할 장소</label>
+                <input type="search" id="map-search-input" name="q" placeholder="장소를 검색하세요" maxlength="100" autocomplete="off" required>
+                <button type="submit">검색</button>
+            </form>
+            <p><button type="button" id="map-reset" class="button-secondary">장안대학교로 돌아가기</button></p>
+            <p id="map-status" class="map-status" role="status"></p>
+
+            <div class="map-wrap">
+                <iframe
+                    id="map-frame"
+                    src="https://maps.google.com/maps?q=%EC%9E%A5%EC%95%88%EB%8C%80%ED%95%99%EA%B5%90&amp;ll=37.2131224,126.9470192&amp;z=17&amp;output=embed"
+                    title="장안대학교 지도 (Google 지도)"
+                    loading="lazy"
+                    referrerpolicy="no-referrer">
+                </iframe>
+            </div>
+
+            <div class="map-fallback">
+                <h3>지도가 보이지 않을 때</h3>
+                <p>네트워크나 브라우저 설정 때문에 지도가 표시되지 않을 수 있습니다. 아래 링크로 외부 지도에서 직접 열 수 있습니다.</p>
+                <ul>
+                    <li><a data-map-provider="google" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%9E%A5%EC%95%88%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener">Google 지도에서 열기<span class="visually-hidden"> (새 창에서 열림)</span></a></li>
+                    <li><a data-map-provider="kakao" href="https://map.kakao.com/link/search/%EC%9E%A5%EC%95%88%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener">카카오맵에서 열기<span class="visually-hidden"> (새 창에서 열림)</span></a></li>
+                    <li><a data-map-provider="naver" href="https://map.naver.com/p/search/%EC%9E%A5%EC%95%88%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener">네이버 지도에서 열기<span class="visually-hidden"> (새 창에서 열림)</span></a></li>
+                </ul>
+            </div>
+
+            <p class="small">
+                개인정보 안내: 지도는 Google 지도를 불러오므로 이 페이지를 열면 Google에 접속 정보가 전달되고,
+                검색한 장소 이름도 Google로 전송됩니다. 이 사이트는 방문자의 위치를 수집하지 않습니다.
+            </p>
+        </section>
+
+        <p><a href="index.html" class="button">홈으로</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+    <script type="module" src="../js/map.js"></script>
+</body>
+</html>

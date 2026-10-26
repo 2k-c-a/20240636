@@ -1,0 +1,517 @@
+/* 공통 스타일 시트 */
+:root {
+    --focus-color: #0b3d91;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Malgun Gothic", sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    /* 한국어는 띄어쓰기 단위로 줄바꿈하고, 너무 긴 단어(URL 등)만 강제로 끊는다 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 이미지·영상·지도는 화면 폭을 넘지 않는다 */
+img,
+video,
+iframe {
+    max-width: 100%;
+}
+
+/* 화면에는 보이지 않지만 스크린 리더는 읽는 텍스트 */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 키보드 포커스 표시 (밝은 배경은 진한 파랑, 어두운 영역은 노랑) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 2px;
+}
+
+header,
+nav,
+footer,
+.bgm-player {
+    --focus-color: #ffd54a;
+}
+
+nav a:focus-visible {
+    outline-offset: -3px;
+}
+
+/* 헤더 */
+header {
+    padding: 24px 20px;
+    text-align: center;
+    color: white;
+    background-color: #2f6f9f;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+header .site-subtitle {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+}
+
+/* 내비게이션: 한 단계 메뉴이며 좁은 화면에서는 줄바꿈한다 */
+nav {
+    background-color: #24587e;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a {
+    display: block;
+    padding: 14px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    background-color: #1a4260;
+}
+
+nav a[aria-current="page"] {
+    font-weight: bold;
+    box-shadow: inset 0 -4px 0 #ffd54a;
+}
+
+/* 본문 */
+main {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 0 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+section h2 {
+    margin-top: 0;
+    color: #2f6f9f;
+}
+
+/* 표 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #e8f1f8;
+}
+
+caption {
+    padding-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f5f9fc;
+}
+
+tfoot td {
+    background-color: #e8f1f8;
+    font-weight: bold;
+}
+
+/* 좁은 화면에서 표가 넘치면 가로 스크롤 */
+.table-wrap {
+    overflow-x: auto;
+}
+
+/* 이미지 */
+figure {
+    margin: 0;
+}
+
+figure img,
+.image-slot {
+    display: block;
+    width: 100%;
+}
+
+.image-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    color: #777;
+    background-color: #e8f1f8;
+    border: 2px dashed #9bbbd4;
+    border-radius: 8px;
+}
+
+figcaption {
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* 안내 상자 (실습 페이지, 개발 중 표시 등) */
+.notice {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    background-color: #fff8e1;
+    border-left: 4px solid #f0a500;
+    border-radius: 4px;
+}
+
+.small {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* 보조 버튼 */
+.button-secondary {
+    padding: 8px 16px;
+    color: #24587e;
+    font-family: inherit;
+    background-color: white;
+    border: 1px solid #2f6f9f;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-secondary:hover {
+    background-color: #e8f1f8;
+}
+
+/* 지도 검색창 */
+.map-search {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.map-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.map-search button {
+    padding: 8px 20px;
+    color: white;
+    background-color: #2f6f9f;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.map-search button:hover {
+    background-color: #24587e;
+}
+
+/* 지도 (16:9 비율 유지) */
+.map-wrap {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.map-status {
+    min-height: 1.6em;
+    margin: 8px 0;
+    color: #24587e;
+}
+
+/* 지도가 보이지 않을 때 쓰는 외부 지도 링크 (항상 표시) */
+.map-fallback {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: #f5f9fc;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+}
+
+.map-fallback h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    color: #24587e;
+}
+
+.map-fallback ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+/* 비디오 (16:9 비율 유지) */
+.video-wrap {
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-wrap video {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 폼 */
+form label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+form button {
+    margin-top: 16px;
+    padding: 10px 24px;
+    color: white;
+    background-color: #2f6f9f;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #24587e;
+}
+
+/* 배경음악 재생 컨트롤 (왼쪽 위 고정) */
+.bgm-player {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    color: white;
+    background-color: rgba(26, 66, 96, 0.85);
+    border-radius: 20px;
+}
+
+.bgm-player button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    color: #1a4260;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.bgm-player span {
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 링크 버튼 */
+.button {
+    display: inline-block;
+    margin: 4px 8px 4px 0;
+    padding: 10px 24px;
+    color: white;
+    text-decoration: none;
+    background-color: #2f6f9f;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #24587e;
+}
+
+/* 코드 블록 (줄 번호 + 실행 중인 줄 강조) */
+pre.code {
+    /* position: absolute인 요소(.visually-hidden 등)가 이 스크롤 영역 안에 갇히게 한다.
+       없으면 긴 줄 끝에 놓인 그 요소가 영역 밖으로 빠져나가 페이지가 가로로 넓어진다. */
+    position: relative;
+    margin: 0;
+    padding: 12px 0;
+    color: #eee;
+    font-family: Consolas, "D2Coding", monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: normal;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow-x: auto;
+    counter-reset: line;
+}
+
+pre.code .line {
+    display: block;
+    padding-right: 16px;
+    white-space: pre;
+}
+
+pre.code .line::before {
+    content: counter(line);
+    counter-increment: line;
+    display: inline-block;
+    width: 2.5em;
+    margin-right: 12px;
+    color: #888;
+    text-align: right;
+}
+
+pre.code .line.hl {
+    background-color: rgba(255, 214, 0, 0.25);
+}
+
+code {
+    padding: 1px 4px;
+    font-family: Consolas, "D2Coding", monospace;
+    background-color: #e8f1f8;
+    border-radius: 3px;
+}
+
+pre.code code {
+    padding: 0;
+    background: none;
+}
+
+/* 마우스 이벤트 체험 박스 */
+.mouse-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    padding: 24px;
+    border: 2px dashed #2f6f9f;
+    border-radius: 8px;
+    background-color: white;
+    color: #24587e;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 푸터 */
+footer {
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background-color: #333;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #cfe6f7;
+}
+
+/* 제목과 겹치지 않도록 좁은 화면에서는 배경음악 컨트롤을 헤더 아래 띠로 둔다 */
+@media screen and (max-width: 600px) {
+    .bgm-player {
+        position: static;
+        justify-content: center;
+        padding: 8px 12px;
+        background-color: #1a4260;
+        border-radius: 0;
+    }
+}
+
+/* 좁은 화면 */
+@media screen and (max-width: 500px) {
+    /* 메뉴 7개가 4개 + 3개의 두 줄로 나뉜다. 메뉴가 더 늘면 줄 수를 다시 본다. */
+    nav li {
+        flex: 1 1 25%;
+    }
+
+    nav a {
+        padding: 12px 8px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    main {
+        padding: 0 12px;
+    }
+
+    section {
+        padding: 16px;
+    }
+}
+
+/* 마우스를 올릴 수 있는 기기에서만 쓰는 공통 올림 효과. 비활성 버튼에는 적용하지 않는다.
+   (터치 기기는 탭한 뒤 :hover가 남을 수 있어 hover: hover 조건 안에 둔다.) */
+@media (hover: hover) {
+    button:not(:disabled):hover,
+    a.button:hover,
+    nav a:hover,
+    [role="button"]:not([aria-disabled="true"]):hover {
+        background-image: linear-gradient(135deg, #24587e, #7048b5);
+        color: white;
+    }
+}

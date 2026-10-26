@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디어 | 알고리즘 실행 시각화</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+</head>
+<body>
+    <header>
+        <h1>알고리즘 실행 시각화</h1>
+        <p class="site-subtitle">모바일 웹 수업 프로젝트 · 개발 중</p>
+    </header>
+
+    <nav aria-label="주 메뉴">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="visualizer.html">시각화</a></li>
+            <li><a href="board.html">게시판</a></li>
+            <li><a href="info.html">소개</a></li>
+            <li><a href="idea.html">아이디어</a></li>
+            <li><a href="map.html">지도</a></li>
+            <li><a href="gallery.html">갤러리</a></li>
+            <li><a href="contact.html">문의</a></li>
+            <li data-auth-menu><a href="login.html">로그인</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <p class="notice">이 페이지는 수업 실습으로 작성한 프로젝트 기획서입니다. 아직 만들지 않은 기능도 포함하고 있으며, 확정한 설계는 저장소의 DESIGN.md에 정리되어 있습니다.</p>
+
+        <section>
+            <h2>프로젝트 제안: 코드 실행 과정 시각화 도구 (가칭)</h2>
+            <p>
+                <b>한 줄 요약.</b>
+                알고리즘 코드를 한 단계씩 실행하면서, 지금 실행 중인 줄과 그 줄이 자료구조의 상태를
+                어떻게 바꾸는지를 한 화면에서 함께 보여주는 웹사이트를 만든다.
+            </p>
+        </section>
+
+        <section>
+            <h2>1. 문제 정의</h2>
+            <p>
+                알고리즘을 배울 때 학습자가 만나는 것은 정적인 텍스트, 즉 소스 코드다.
+                그러나 알고리즘의 본질은 시간에 따라 변하는 <em>상태</em>에 있다.
+                BFS의 큐에 무엇이 들어 있는지, 어떤 노드를 방문했는지는 코드 어디에도 적혀 있지 않고,
+                학습자가 머릿속에서 직접 시뮬레이션해야 한다.
+            </p>
+            <p>
+                이 시뮬레이션이 틀리는 순간 알고리즘에 대한 이해도 함께 틀어진다.
+                따라서 코드(정적)와 실행(동적) 사이의 간극을 눈에 보이게 메우는 도구가 필요하다.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. 핵심 아이디어</h2>
+            <p>사용자는 두 가지를 고르고, 버튼으로 실행을 한 단계씩 진행한다.</p>
+            <ol>
+                <li><b>언어 선택</b>: 같은 알고리즘을 여러 언어로 비교해서 볼 수 있다.</li>
+                <li><b>알고리즘 선택</b>: 예를 들어 BFS를 고르면 해당 언어의 예시 코드가 나타난다.</li>
+                <li><b>단계 실행</b>: 버튼을 누를 때마다 (a) 코드에서 현재 실행 중인 줄이 강조되고,
+                    (b) 그 줄이 만든 상태 변화가 시각화 영역에 반영된다.</li>
+            </ol>
+            <p>
+                핵심은 방금 실행한 <em>연산</em>이 코드의 어느 줄에 해당하는지와, 그 연산이 만든
+                <em>화면의 상태 변화</em>를 같은 시점으로 묶어 보여주는 것이다.
+                한 연산이 여러 줄에 걸치거나 언어마다 줄 수가 다를 수 있고, 조건 검사처럼 상태가
+                바뀌지 않는 연산도 있으므로 줄과 상태 변화가 항상 1:1로 대응하는 것은 아니다.
+                두 정보가 항상 같은 시점을 가리켜야 학습자가 인과관계를 추적할 수 있다.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. 관련 사이트 (Related Work)</h2>
+            <p>
+                비슷한 목표를 가진 서비스가 이미 존재한다. 새로 만들기 전에 이들이 무엇을 잘하고
+                무엇을 다루지 않는지 확인해서, 이 프로젝트가 서야 할 위치를 분명히 한다.
+                (설치형 프로그램은 제외하고, 브라우저에서 바로 쓸 수 있는 웹사이트만 정리했다.)
+            </p>
+            <div class="table-wrap">
+                <table>
+                    <caption>코드/알고리즘 시각화 웹사이트 비교</caption>
+                    <thead>
+                        <tr>
+                            <th>사이트</th>
+                            <th>초점</th>
+                            <th>이 프로젝트와의 차이</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://pythontutor.com/visualize.html" target="_blank" rel="noopener">Python Tutor</a></td>
+                            <td>Python / Java / JavaScript / C / C++ 코드를 한 줄씩 실행하며 변수와 메모리(스택, 힙) 상태를 함께 보여준다.</td>
+                            <td>코드 줄 강조 + 상태 표시라는 핵심 방식이 가장 가깝다. 다만 임의의 코드를 다루는 범용 디버거에 가깝고, 알고리즘 학습이나 언어 간 비교에 특화되어 있지 않다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://visualgo.net/en/dfsbfs" target="_blank" rel="noopener">VisuAlgo</a></td>
+                            <td>BFS/DFS, 정렬, 자료구조 40여 개를 그래프·막대 애니메이션으로 보여준다.</td>
+                            <td>그래프와 의사코드를 함께 제공한다. 이 프로젝트는 준비된 예제를 한국어 단계 설명과 연결하는 학습 경험에 초점을 둔다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://algorithm-visualizer.org/" target="_blank" rel="noopener">Algorithm Visualizer</a></td>
+                            <td>사용자가 입력한 코드(JavaScript/Java/C++)를 실행하며 그 과정을 시각화한다.</td>
+                            <td>코드와 시각화를 함께 제공하는 참고 사례다. 언어 비교 기능의 부재는 단정하지 않으며, 이 프로젝트는 한국어 설명을 중심으로 구성한다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                기존 서비스의 코드와 시각화 연결 방식을 참고하되, 이 프로젝트의 차별점은
+                <em>이해하기 쉬운 한국어 단계 설명</em>이다. 코드는 한 번에 한 언어만 표시하고,
+                언어를 전환해도 같은 의미 단계의 상태를 유지한다.
+            </p>
+        </section>
+
+        <section>
+            <h2>4. 초기 범위</h2>
+            <p>처음부터 모든 것을 지원하지 않고, 작은 집합으로 시작해 구조가 검증되면 확장한다.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>1차 지원 목표 (변경될 수 있음)</caption>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>항목</th>
+                            <th>시각화할 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>알고리즘</td>
+                            <td>BFS</td>
+                            <td>큐, 방문한 노드, 현재 노드</td>
+                        </tr>
+                        <tr>
+                            <td>알고리즘</td>
+                            <td>DFS</td>
+                            <td>스택(재귀 호출), 방문한 노드</td>
+                        </tr>
+                        <tr>
+                            <td>알고리즘</td>
+                            <td>이분 탐색</td>
+                            <td>탐색 구간의 left / mid / right</td>
+                        </tr>
+                        <tr>
+                            <td>알고리즘</td>
+                            <td>버블 정렬</td>
+                            <td>비교 중인 두 원소, 교환 여부</td>
+                        </tr>
+                        <tr>
+                            <td>언어</td>
+                            <td>Python → C++ → Java → Kotlin → Rust → C → JavaScript</td>
+                            <td>같은 알고리즘의 언어별 코드</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. 동작 예시: BFS</h2>
+            <p>
+                Python을 선택하고 BFS를 실행한다고 하자. 그래프는
+                <code>A: [B, C]</code>, <code>B: [D]</code>, <code>C: [D]</code>, <code>D: []</code>이고
+                시작 노드는 <code>A</code>다. 아래는 화면에 나타날 코드의 모습이며,
+                노란색 줄은 "방금 실행한 연산의 줄"이며, 상태는 해당 연산을 실행한 뒤의 결과다. 준비된 예제의 실행 기록을 재생하며 사용자 코드를 실제로 실행하는 기능은 아니다.
+            </p>
+<pre class="code"><code><span class="line">from collections import deque</span>
+<span class="line">def bfs(graph, start):</span>
+<span class="line">    visited = {start}</span>
+<span class="line">    queue = deque([start])</span>
+<span class="line">    while queue:</span>
+<span class="line">        node = queue.popleft()</span>
+<span class="line">        for nxt in graph[node]:</span>
+<span class="line hl">            if nxt not in visited:</span>
+<span class="line">                visited.add(nxt)</span>
+<span class="line">                queue.append(nxt)</span>
+</code></pre>
+            <p>버튼을 누를 때마다 다음 표의 한 행이 화면에 반영된다.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>버튼을 누를 때마다 일어나는 일 (앞부분)</caption>
+                    <thead>
+                        <tr>
+                            <th>단계</th>
+                            <th>실행 줄</th>
+                            <th>visited</th>
+                            <th>queue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>실행 전</td>
+                            <td>{}</td>
+                            <td>[]</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>{A}</td>
+                            <td>[]</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>{A}</td>
+                            <td>[A]</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>5, 6</td>
+                            <td>{A}</td>
+                            <td>[] (node = A)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>7, 8</td>
+                            <td>{A}</td>
+                            <td>[] (nxt = B, 아직 미발견)</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>9</td>
+                            <td>{A, B}</td>
+                            <td>[] (nxt = B)</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>10</td>
+                            <td>{A, B}</td>
+                            <td>[B] (nxt = B)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                시각화 영역에서는 같은 정보를 그래프와 큐 그림으로 보여준다.
+                방문한 노드는 색을 바꾸고, 큐는 막대 형태로 원소가 들어가고 나오는 모습을 보인다.
+            </p>
+        </section>
+
+        <section>
+            <h2>6. 구현 접근 (초안)</h2>
+            <p>
+                핵심 설계 결정은 "실행 과정을 어디서 얻는가"이다.
+            </p>
+            <ul>
+                <li>
+                    <b>1단계 (미리 기록한 실행 기록).</b>
+                    알고리즘마다 (실행 줄, 상태) 쌍의 열, 즉 <em>trace</em>를 미리 만들어 두고
+                    버튼이 이 열을 앞뒤로 넘기게 한다. 구현이 단순하고 언어별 차이는 코드 텍스트와
+                    줄 번호 대응표로만 흡수할 수 있다.
+                </li>
+                <li>
+                    <b>2단계 (실제 실행).</b>
+                    사용자가 입력한 코드를 브라우저 안에서 직접 실행하며 trace를 생성한다.
+                    범위가 훨씬 넓어지므로 1단계로 사용성을 검증한 뒤 판단한다.
+                </li>
+            </ul>
+            <p>
+                기능 관점에서는 <code>다음</code> 버튼과 함께 <code>이전</code> 버튼과 <code>처음으로</code> 버튼을 두는 것을 목표로 한다.
+                trace가 배열로 저장되어 있으면 되돌아가기는 인덱스를 하나 줄이는 것만으로 구현된다.
+            </p>
+        </section>
+
+        <section>
+            <h2>7. 성공 기준</h2>
+            <ul>
+                <li>학습자가 어떤 단계에서든 "이 줄이 실행된 결과로 상태가 이렇게 바뀌었다"를 화면만 보고 설명할 수 있다.</li>
+                <li>새 알고리즘을 추가할 때 코드, trace, 시각화 규칙만 추가하면 되고 나머지 화면은 수정하지 않아도 된다.</li>
+                <li>모바일 화면에서도 코드와 시각화 영역이 함께 보인다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8. 범위에서 제외하는 것</h2>
+            <ul>
+                <li>대규모 입력에 대한 성능 측정. 이 도구의 목적은 이해이지 벤치마크가 아니다.</li>
+                <li>코드 편집기 수준의 기능 (자동 완성, 디버거 연동 등).</li>
+                <li>진도 저장 같은 계정 연동 학습 기능. 회원가입·로그인·게시판은 수업 필수 항목이므로 범위에 포함한다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>9. 확정한 구현 정책</h2>
+            <p>언어 표시 순서는 Python → C++ → Java → Kotlin → Rust → C → JavaScript입니다. 일곱 언어 모두 코드를 지원합니다.</p>
+            <ul>
+                <li>단일 언어를 전환하며 현재 의미 단계는 유지한다. Python의 <code>deque</code> 등 언어별 구현 차이는 한국어로 설명한다.</li>
+                <li>MVP에서는 검증한 고정 예제만 선택한다. 사용자 입력 편집은 후속 범위다.</li>
+                <li>단계는 의미 있는 연산으로 나누며, 조건 검사·발견 기록·큐 삽입을 분리한다. 연산마다 언어별 코드 줄 목록을 대응시킨다.</li>
+            </ul>
+        </section>
+
+        <p><a href="index.html" class="button">홈으로</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 모바일 웹 실습 · <a href="https://github.com/2k-c-a" target="_blank" rel="noopener">GitHub<span class="visually-hidden"> (새 창에서 열림)</span></a></p>
+    </footer>
+
+    <script src="../js/mouse.js" defer></script>
+    <script type="module" src="../js/site.js"></script>
+</body>
+</html>

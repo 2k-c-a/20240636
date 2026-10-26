@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "dfs-basic-v3",
+  "algorithmId": "dfs",
+  "exampleId": "basic",
+  "input": {
+    "directed": true,
+    "graph": {"A": ["B", "C"], "B": ["D", "E"], "C": ["F"], "D": [], "E": [], "F": []},
+    "start": "A",
+    "layout": {
+      "A": {"x": 50, "y": 10},
+      "B": {"x": 25, "y": 42},
+      "C": {"x": 75, "y": 42},
+      "D": {"x": 12, "y": 80},
+      "E": {"x": 38, "y": 80},
+      "F": {"x": 75, "y": 80}
+    }
+  },
+  "codes": {
+    "python": {
+      "lines": [
+        "def dfs(graph, node, visited):",
+        "    visited.add(node)",
+        "    for nxt in graph[node]:",
+        "        if nxt not in visited:",
+        "            dfs(graph, nxt, visited)"
+      ],
+      "notes": "visited는 집합이며 trace의 discovered와 대응합니다. dfs를 다시 부를 때마다 호출 스택에 한 칸이 쌓이고(frames), 함수가 끝나면 한 칸이 빠집니다. nextNeighborIndex는 for 반복이 다음에 볼 이웃의 위치입니다. frames와 processed는 학습용 표시라서 코드에 변수가 없으며, for 반복이 끝나는 지점(3번 줄)에서 처리 완료로 표시합니다. 처음 호출 dfs(graph, start, set())은 이 코드 밖에서 합니다. Python은 재귀 깊이에 제한(기본 약 1000)이 있습니다."
+    },
+    "cpp": {
+      "lines": [
+        "#include <vector>",
+        "void dfs(const std::vector<std::vector<int>>& graph, int node, std::vector<bool>& visited) {",
+        "    visited[node] = true;",
+        "    for (int nxt : graph[node]) {",
+        "        if (!visited[nxt]) {",
+        "            dfs(graph, nxt, visited);",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "노드 A, B, C, …는 0, 1, 2, …로 나타냅니다. graph는 인접 리스트이며 visited는 참조로 공유하므로 재귀 호출의 발견 기록이 유지됩니다. 처음 호출 전 graph.size()만큼 false로 초기화한 visited를 만듭니다. frames와 processed는 학습용 표시입니다. 이웃 반복(4번 줄)이 끝나면 처리 완료이며 함수가 끝나면 호출 스택에서 빠집니다. 깊은 재귀는 스택 한계에 주의해야 합니다."
+    },
+    "java": {
+      "lines": [
+        "class Algorithm {",
+        "    static void dfs(int[][] graph, int node, boolean[] visited) {",
+        "        visited[node] = true;",
+        "        for (int nxt : graph[node]) {",
+        "            if (!visited[nxt]) {",
+        "                dfs(graph, nxt, visited);",
+        "            }",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "노드 A, B, C, …는 입력 순서의 정수 인덱스 0, 1, 2, …로 나타냅니다. 인접 리스트의 이웃 순서대로 방문합니다. processed와 호출 스택은 학습용 표시입니다. 첫 호출 전 new boolean[graph.length]를 전달합니다. 깊은 재귀는 스택 한계에 주의해야 합니다."
+    },
+    "kotlin": {
+      "lines": [
+        "fun dfs(graph: Array<IntArray>, node: Int, visited: BooleanArray) {",
+        "    visited[node] = true",
+        "    for (nxt in graph[node]) {",
+        "        if (!visited[nxt]) {",
+        "            dfs(graph, nxt, visited)",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "노드 A, B, C, …는 입력 순서의 정수 인덱스 0, 1, 2, …로 나타냅니다. 인접 리스트의 이웃 순서대로 방문합니다. processed와 호출 스택은 학습용 표시입니다. 첫 호출 전 BooleanArray(graph.size)를 전달합니다. 배열을 공유하므로 재귀 호출에서 발견 기록을 유지합니다. 깊은 재귀는 스택 한계에 주의해야 합니다."
+    },
+    "rust": {
+      "lines": [
+        "fn dfs(graph: &[Vec<usize>], node: usize, visited: &mut [bool]) {",
+        "    visited[node] = true;",
+        "    for &nxt in &graph[node] {",
+        "        if !visited[nxt] {",
+        "            dfs(graph, nxt, visited);",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "노드 A, B, C, …는 입력 순서의 정수 인덱스 0, 1, 2, …로 나타냅니다. 인접 리스트의 이웃 순서대로 방문합니다. processed와 호출 스택은 학습용 표시입니다. 첫 호출 전 vec![false; graph.len()]을 만들고 &mut visited를 전달합니다. 가변 슬라이스로 발견 기록을 공유합니다. 깊은 재귀는 스택 한계에 주의해야 합니다."
+    },
+    "c": {
+      "lines": [
+        "#define N 6",
+        "void dfs(int adj[N][N], int deg[N], int node, int visited[N]) {",
+        "    visited[node] = 1;",
+        "    for (int i = 0; i < deg[node]; i++) {",
+        "        int nxt = adj[node][i];",
+        "        if (!visited[nxt]) {",
+        "            dfs(adj, deg, nxt, visited);",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "노드 A, B, C, …는 0, 1, 2, …로 나타내며 adj[node][i]는 node의 i번째 이웃, deg[node]는 이웃의 수입니다. visited[x]가 1이면 발견한 노드(trace의 discovered)입니다. dfs를 다시 부를 때마다 C의 호출 스택에 한 칸(스택 프레임)이 쌓이고(frames), 함수가 끝나면 빠집니다. 변수 i는 for 반복이 다음에 볼 이웃의 위치(nextNeighborIndex)에 해당합니다. frames와 processed는 학습용 표시라서 코드에 변수가 없으며, for 반복이 끝나는 지점(4번 줄)에서 처리 완료로 표시합니다. 처음 호출 dfs(adj, deg, start, visited)는 이 코드 밖에서 합니다."
+    },
+    "javascript": {
+      "lines": [
+        "function dfs(graph, node, visited) {",
+        "    visited.add(node);",
+        "    for (const nxt of graph[node]) {",
+        "        if (!visited.has(nxt)) {",
+        "            dfs(graph, nxt, visited);",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "notes": "visited는 Set이며 trace의 discovered와 대응합니다. dfs를 다시 부를 때마다 호출 스택에 한 칸이 쌓이고(frames), 함수가 끝나면 한 칸이 빠집니다. nextNeighborIndex는 for…of 반복이 다음에 볼 이웃의 위치입니다. frames와 processed는 학습용 표시라서 코드에 변수가 없으며, for…of 반복이 끝나는 지점(3번 줄)에서 처리 완료로 표시합니다. 처음 호출 dfs(graph, start, new Set())은 이 코드 밖에서 합니다. 호출 스택이 너무 깊어지면 오류가 나므로 아주 깊은 그래프에는 반복문 방식이 필요합니다."
+    }
+  },
+  "steps": [
+    {
+      "index": 0, "eventId": "initial", "operation": "initial",
+      "lines": {"python": [], "cpp": [], "java": [], "kotlin": [], "rust": [], "c": [], "javascript": []},
+      "state": {"frames": [], "discovered": [], "processed": [], "current": null},
+      "message": "실행 전 상태입니다."
+    },
+    {
+      "index": 1, "eventId": "call-start", "operation": "call",
+      "lines": {"python": [1], "cpp": [2], "java": [2], "kotlin": [1], "rust": [1], "c": [2], "javascript": [1]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 0}], "discovered": [], "processed": [], "current": "A"},
+      "message": "시작 노드 A에 대해 dfs를 처음 호출합니다. 호출 스택에 A가 쌓입니다."
+    },
+    {
+      "index": 2, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 0}], "discovered": ["A"], "processed": [], "current": "A"},
+      "message": "A를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 3, "eventId": "check-neighbor", "operation": "check-neighbor",
+      "lines": {"python": [3, 4], "cpp": [4, 5], "java": [4, 5], "kotlin": [3, 4], "rust": [3, 4], "c": [4, 5, 6], "javascript": [3, 4]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}], "discovered": ["A"], "processed": [], "current": "A"},
+      "message": "A의 첫 이웃 B를 검사합니다. 아직 발견하지 않았으므로 바로 호출합니다."
+    },
+    {
+      "index": 4, "eventId": "call-neighbor", "operation": "call",
+      "lines": {"python": [1, 5], "cpp": [2, 6], "java": [2, 6], "kotlin": [1, 5], "rust": [1, 5], "c": [2, 7], "javascript": [1, 5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 0}], "discovered": ["A"], "processed": [], "current": "B"},
+      "message": "A에서 이웃 B로 dfs를 호출합니다. 호출 스택에 B가 쌓입니다."
+    },
+    {
+      "index": 5, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 0}], "discovered": ["A", "B"], "processed": [], "current": "B"},
+      "message": "B를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 6, "eventId": "check-neighbor", "operation": "check-neighbor",
+      "lines": {"python": [3, 4], "cpp": [4, 5], "java": [4, 5], "kotlin": [3, 4], "rust": [3, 4], "c": [4, 5, 6], "javascript": [3, 4]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 1}], "discovered": ["A", "B"], "processed": [], "current": "B"},
+      "message": "B의 첫 이웃 D를 검사합니다. 아직 발견하지 않았으므로 바로 호출합니다."
+    },
+    {
+      "index": 7, "eventId": "call-neighbor", "operation": "call",
+      "lines": {"python": [1, 5], "cpp": [2, 6], "java": [2, 6], "kotlin": [1, 5], "rust": [1, 5], "c": [2, 7], "javascript": [1, 5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 1}, {"node": "D", "nextNeighborIndex": 0}], "discovered": ["A", "B"], "processed": [], "current": "D"},
+      "message": "B에서 이웃 D로 dfs를 호출합니다. 호출 스택에 D가 쌓입니다."
+    },
+    {
+      "index": 8, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 1}, {"node": "D", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D"], "processed": [], "current": "D"},
+      "message": "D를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 9, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 1}, {"node": "D", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D"], "processed": ["D"], "current": "D"},
+      "message": "D에는 이웃이 없습니다. D의 처리를 마칩니다."
+    },
+    {
+      "index": 10, "eventId": "return-neighbor", "operation": "return",
+      "lines": {"python": [5], "cpp": [6], "java": [6], "kotlin": [5], "rust": [5], "c": [7], "javascript": [5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 1}], "discovered": ["A", "B", "D"], "processed": ["D"], "current": "B"},
+      "message": "D의 호출이 끝나 B로 돌아갑니다. 호출 스택에서 D가 빠집니다."
+    },
+    {
+      "index": 11, "eventId": "check-neighbor", "operation": "check-neighbor",
+      "lines": {"python": [3, 4], "cpp": [4, 5], "java": [4, 5], "kotlin": [3, 4], "rust": [3, 4], "c": [4, 5, 6], "javascript": [3, 4]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D"], "processed": ["D"], "current": "B"},
+      "message": "B의 다음 이웃 E를 검사합니다. 아직 발견하지 않았으므로 바로 호출합니다."
+    },
+    {
+      "index": 12, "eventId": "call-neighbor", "operation": "call",
+      "lines": {"python": [1, 5], "cpp": [2, 6], "java": [2, 6], "kotlin": [1, 5], "rust": [1, 5], "c": [2, 7], "javascript": [1, 5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}, {"node": "E", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D"], "processed": ["D"], "current": "E"},
+      "message": "B에서 이웃 E로 dfs를 호출합니다. 호출 스택에 E가 쌓입니다."
+    },
+    {
+      "index": 13, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}, {"node": "E", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E"], "processed": ["D"], "current": "E"},
+      "message": "E를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 14, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}, {"node": "E", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E"], "current": "E"},
+      "message": "E에는 이웃이 없습니다. E의 처리를 마칩니다."
+    },
+    {
+      "index": 15, "eventId": "return-neighbor", "operation": "return",
+      "lines": {"python": [5], "cpp": [6], "java": [6], "kotlin": [5], "rust": [5], "c": [7], "javascript": [5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E"], "current": "B"},
+      "message": "E의 호출이 끝나 B로 돌아갑니다. 호출 스택에서 E가 빠집니다."
+    },
+    {
+      "index": 16, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}, {"node": "B", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E", "B"], "current": "B"},
+      "message": "B의 이웃을 모두 검사했습니다. B의 처리를 마칩니다."
+    },
+    {
+      "index": 17, "eventId": "return-neighbor", "operation": "return",
+      "lines": {"python": [5], "cpp": [6], "java": [6], "kotlin": [5], "rust": [5], "c": [7], "javascript": [5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 1}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E", "B"], "current": "A"},
+      "message": "B의 호출이 끝나 A로 돌아갑니다. 호출 스택에서 B가 빠집니다."
+    },
+    {
+      "index": 18, "eventId": "check-neighbor", "operation": "check-neighbor",
+      "lines": {"python": [3, 4], "cpp": [4, 5], "java": [4, 5], "kotlin": [3, 4], "rust": [3, 4], "c": [4, 5, 6], "javascript": [3, 4]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E", "B"], "current": "A"},
+      "message": "A의 다음 이웃 C를 검사합니다. 아직 발견하지 않았으므로 바로 호출합니다."
+    },
+    {
+      "index": 19, "eventId": "call-neighbor", "operation": "call",
+      "lines": {"python": [1, 5], "cpp": [2, 6], "java": [2, 6], "kotlin": [1, 5], "rust": [1, 5], "c": [2, 7], "javascript": [1, 5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E"], "processed": ["D", "E", "B"], "current": "C"},
+      "message": "A에서 이웃 C로 dfs를 호출합니다. 호출 스택에 C가 쌓입니다."
+    },
+    {
+      "index": 20, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E", "C"], "processed": ["D", "E", "B"], "current": "C"},
+      "message": "C를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 21, "eventId": "check-neighbor", "operation": "check-neighbor",
+      "lines": {"python": [3, 4], "cpp": [4, 5], "java": [4, 5], "kotlin": [3, 4], "rust": [3, 4], "c": [4, 5, 6], "javascript": [3, 4]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}], "discovered": ["A", "B", "D", "E", "C"], "processed": ["D", "E", "B"], "current": "C"},
+      "message": "C의 첫 이웃 F를 검사합니다. 아직 발견하지 않았으므로 바로 호출합니다."
+    },
+    {
+      "index": 22, "eventId": "call-neighbor", "operation": "call",
+      "lines": {"python": [1, 5], "cpp": [2, 6], "java": [2, 6], "kotlin": [1, 5], "rust": [1, 5], "c": [2, 7], "javascript": [1, 5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}, {"node": "F", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E", "C"], "processed": ["D", "E", "B"], "current": "F"},
+      "message": "C에서 이웃 F로 dfs를 호출합니다. 호출 스택에 F가 쌓입니다."
+    },
+    {
+      "index": 23, "eventId": "discover", "operation": "discover",
+      "lines": {"python": [2], "cpp": [3], "java": [3], "kotlin": [2], "rust": [2], "c": [3], "javascript": [2]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}, {"node": "F", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B"], "current": "F"},
+      "message": "F를 발견한 노드로 기록합니다."
+    },
+    {
+      "index": 24, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}, {"node": "F", "nextNeighborIndex": 0}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F"], "current": "F"},
+      "message": "F에는 이웃이 없습니다. F의 처리를 마칩니다."
+    },
+    {
+      "index": 25, "eventId": "return-neighbor", "operation": "return",
+      "lines": {"python": [5], "cpp": [6], "java": [6], "kotlin": [5], "rust": [5], "c": [7], "javascript": [5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F"], "current": "C"},
+      "message": "F의 호출이 끝나 C로 돌아갑니다. 호출 스택에서 F가 빠집니다."
+    },
+    {
+      "index": 26, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}, {"node": "C", "nextNeighborIndex": 1}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F", "C"], "current": "C"},
+      "message": "C의 이웃을 모두 검사했습니다. C의 처리를 마칩니다."
+    },
+    {
+      "index": 27, "eventId": "return-neighbor", "operation": "return",
+      "lines": {"python": [5], "cpp": [6], "java": [6], "kotlin": [5], "rust": [5], "c": [7], "javascript": [5]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F", "C"], "current": "A"},
+      "message": "C의 호출이 끝나 A로 돌아갑니다. 호출 스택에서 C가 빠집니다."
+    },
+    {
+      "index": 28, "eventId": "process", "operation": "process",
+      "lines": {"python": [3], "cpp": [4], "java": [4], "kotlin": [3], "rust": [3], "c": [4], "javascript": [3]},
+      "state": {"frames": [{"node": "A", "nextNeighborIndex": 2}], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F", "C", "A"], "current": "A"},
+      "message": "A의 이웃을 모두 검사했습니다. A의 처리를 마칩니다."
+    },
+    {
+      "index": 29, "eventId": "return-start", "operation": "return",
+      "lines": {"python": [1], "cpp": [2], "java": [2], "kotlin": [1], "rust": [1], "c": [2], "javascript": [1]},
+      "state": {"frames": [], "discovered": ["A", "B", "D", "E", "C", "F"], "processed": ["D", "E", "B", "F", "C", "A"], "current": null},
+      "message": "A의 호출이 끝났습니다. 호출 스택이 비어 탐색을 마칩니다."
+    }
+  ]
+}
